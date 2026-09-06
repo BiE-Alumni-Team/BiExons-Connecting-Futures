@@ -1,19 +1,57 @@
 "use client";
 
+import useInputFields from "@/components/hooks/useInputFields";
 import { useState } from "react";
 
 const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
 
+    const [name, nameOnChange] = useInputFields("");
+    const [email, emailOnChange] = useInputFields("");
+    const [id, idOnchange] = useInputFields("");
+    const [reg, regOnchange] = useInputFields("");
+    const [mobile, mobileOnchange] = useInputFields("");
+    const [password, passwordOnChange] = useInputFields("");
+    const [confirmpassword, confirmpasswordOnchange] = useInputFields("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isLogin) {
-            console.log("Login submitted");
-        } else {
-            console.log("Registration submitted");
+        console.log("email", name);
+        console.log("pass", password);
+
+        if (!isLogin) {
+            console.log("email", email);
+            console.log("Student Id", id);
+            console.log("Registration", reg);
+            console.log("Mobile", mobile);
+            console.log("conpass", confirmpassword)
         }
     };
+
+    const emailinput = <div>
+        <label
+            htmlFor="email"
+            className="mb-1.5 block text-sm font-medium text-gray-700"
+        >
+            Email Address
+        </label>
+
+        <input
+            id="email"
+            name="email"
+            type="email"
+            defaultValue={email}
+            placeholder="example@email.com"
+            onChange={emailOnChange}
+            required
+            className={`w-full rounded-lg border border-gray-300
+                         px-4 py-3 text-sm outline-none
+                         transition
+                         focus:border-green-600
+                         focus:ring-2 focus:ring-green-100`}
+        />
+    </div>
 
     return (
         <div className="min-h-screen bg-[#f5f7f5] flex items-center justify-center px-4 py-10">
@@ -28,8 +66,8 @@ const AuthForm = () => {
 
                     <p className="mt-2 text-sm text-gray-500">
                         {isLogin
-                            ? "Login to your BIE Alumni account"
-                            : "Register for the BIE Alumni Network"}
+                            ? "Login to your BiE Alumni account"
+                            : "Register for the BiE Alumni Network"}
                     </p>
                 </div>
 
@@ -43,7 +81,7 @@ const AuthForm = () => {
                             : "text-gray-500 hover:text-gray-700"
                             }`}
                     >
-                        Login
+                        Sign In
                     </button>
 
                     <button
@@ -54,7 +92,7 @@ const AuthForm = () => {
                             : "text-gray-500 hover:text-gray-700"
                             }`}
                     >
-                        Register
+                        Sign Up
                     </button>
                 </div>
 
@@ -76,14 +114,13 @@ const AuthForm = () => {
                                 <input
                                     id="name"
                                     name="name"
+                                    defaultValue={name}
                                     type="text"
                                     placeholder="Enter your full name"
-                                    required
+                                    required onChange={nameOnChange}
                                     className="w-full rounded-lg border border-gray-300
-                             px-4 py-3 text-sm outline-none
-                             transition
-                             focus:border-green-600
-                             focus:ring-2 focus:ring-green-100"
+                                    px-4 py-3 text-sm outline-none transition
+                                   focus:border-green-600 focus:ring-2 focus:ring-green-100"
                                 />
                             </div>
 
@@ -99,9 +136,10 @@ const AuthForm = () => {
                                 <input
                                     id="studentId"
                                     name="studentId"
+                                    defaultValue={id}
                                     type="text"
                                     placeholder="Enter your student ID"
-                                    required
+                                    required onChange={idOnchange}
                                     className="w-full rounded-lg border border-gray-300
                              px-4 py-3 text-sm outline-none
                              transition
@@ -122,9 +160,10 @@ const AuthForm = () => {
                                 <input
                                     id="registrationNo"
                                     name="registrationNo"
+                                    defaultValue={reg}
                                     type="text"
                                     placeholder="Enter registration number"
-                                    required
+                                    required onChange={regOnchange}
                                     className="w-full rounded-lg border border-gray-300
                              px-4 py-3 text-sm outline-none
                              transition
@@ -145,9 +184,10 @@ const AuthForm = () => {
                                 <input
                                     id="mobile"
                                     name="mobile"
+                                    defaultValue={mobile}
                                     type="tel"
                                     placeholder="01XXXXXXXXX"
-                                    required
+                                    required onChange={mobileOnchange}
                                     className="w-full rounded-lg border border-gray-300
                              px-4 py-3 text-sm outline-none
                              transition
@@ -158,28 +198,10 @@ const AuthForm = () => {
                         </>
                     )}
 
-                    {/* Email */}
-                    <div>
-                        <label
-                            htmlFor="email"
-                            className="mb-1.5 block text-sm font-medium text-gray-700"
-                        >
-                            Email Address
-                        </label>
+                    {/* Email */
+                        emailinput
+                    }
 
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="example@email.com"
-                            required
-                            className="w-full rounded-lg border border-gray-300
-                         px-4 py-3 text-sm outline-none
-                         transition
-                         focus:border-green-600
-                         focus:ring-2 focus:ring-green-100"
-                        />
-                    </div>
 
                     {/* Password */}
                     <div>
@@ -193,14 +215,16 @@ const AuthForm = () => {
                         <input
                             id="password"
                             name="password"
+                            defaultValue={password}
                             type="password"
                             placeholder="Enter your password"
                             required
-                            className="w-full rounded-lg border border-gray-300
+                            onChange={passwordOnChange}
+                            className={`w-full rounded-lg border border-gray-300
                          px-4 py-3 text-sm outline-none
                          transition
                          focus:border-green-600
-                         focus:ring-2 focus:ring-green-100"
+                         focus:ring-2 focus:ring-green-100`}
                         />
                     </div>
 
@@ -217,14 +241,15 @@ const AuthForm = () => {
                             <input
                                 id="confirmPassword"
                                 name="confirmPassword"
+                                defaultValue={confirmpassword}
                                 type="password"
                                 placeholder="Confirm your password"
-                                required
-                                className="w-full rounded-lg border border-gray-300
+                                required onChange={confirmpasswordOnchange}
+                                className={`w-full rounded-lg border border-gray-300
                            px-4 py-3 text-sm outline-none
                            transition
                            focus:border-green-600
-                           focus:ring-2 focus:ring-green-100"
+                           focus:ring-2 focus:ring-green-100`}
                             />
                         </div>
                     )}
@@ -244,13 +269,13 @@ const AuthForm = () => {
                     {/* Submit */}
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-green-700 py-3
+                        className={`w-full rounded-lg bg-green-700 py-3
                        font-semibold text-white
                        transition hover:bg-green-800
                        focus:outline-none focus:ring-2
-                       focus:ring-green-300"
+                       focus:ring-green-300`}
                     >
-                        {isLogin ? "Login" : "Create Account"}
+                        {isLogin ? "Sign In" : "Create Account"}
                     </button>
 
                 </form>
@@ -263,9 +288,9 @@ const AuthForm = () => {
                             <button
                                 type="button"
                                 onClick={() => setIsLogin(false)}
-                                className="font-semibold text-green-700 hover:underline"
+                                className={`font-semibold text-green-700 hover:underline`}
                             >
-                                Register
+                                Sign Up
                             </button>
                         </>
                     ) : (
@@ -276,7 +301,7 @@ const AuthForm = () => {
                                 onClick={() => setIsLogin(true)}
                                 className="font-semibold text-green-700 hover:underline"
                             >
-                                Login
+                                Sign In
                             </button>
                         </>
                     )}
