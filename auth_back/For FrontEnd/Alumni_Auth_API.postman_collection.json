@@ -1,0 +1,85 @@
+{
+  "info": {
+    "name": "Alumni Auth API",
+    "description": "Register, Login, Profile, Refresh Token endpoints for the Alumni Networking System.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"testuser1\",\n    \"email\": \"test1@example.com\",\n    \"reg_no\": \"58965\",\n    \"id_no\": \"2409001\",\n    \"session\": \"2023-24\",\n    \"phone\": \"\",\n    \"password\": \"strongpass123\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/accounts/register/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "accounts", "register", ""]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"testuser1\",\n    \"password\": \"strongpass123\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/token/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "token", ""]
+        }
+      }
+    },
+    {
+      "name": "Refresh Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"refresh\": \"PASTE_REFRESH_TOKEN_HERE\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/token/refresh/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "token", "refresh", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer PASTE_ACCESS_TOKEN_HERE" }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/accounts/profile/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "accounts", "profile", ""]
+        }
+      }
+    }
+  ]
+}
