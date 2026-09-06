@@ -1,11 +1,11 @@
-import AuthForm from "@/app/registration/page";
-import Image from "next/image";
+import Banner from "@/components/header/Banner.jsx";
+
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-linear-to-r from-green-200 via-green-100 to-emerald-50">
 
-      <h1>This is home</h1>
+      <Banner />
 
       <main>
 

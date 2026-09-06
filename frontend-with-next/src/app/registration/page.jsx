@@ -14,10 +14,12 @@ const AuthForm = () => {
     const [password, passwordOnChange] = useInputFields("");
     const [confirmpassword, confirmpasswordOnchange] = useInputFields("");
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("email", name);
+        console.log("email", email);
         console.log("pass", password);
 
         if (!isLogin) {
@@ -201,7 +203,6 @@ const AuthForm = () => {
                     {/* Email */
                         emailinput
                     }
-
 
                     {/* Password */}
                     <div>

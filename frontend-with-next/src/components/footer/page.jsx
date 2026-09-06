@@ -25,7 +25,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <form className="flex shrink-0 gap-4">
+                    <form className="flex flex-col lg:flex-row shrink-0 gap-4 ">
                         <input
                             type="email"
                             placeholder="Enter your email address"
@@ -43,6 +43,7 @@ const Footer = () => {
                         >
                             Subscribe
                         </button>
+
                     </form>
 
                 </div>
