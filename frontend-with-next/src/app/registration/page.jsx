@@ -273,7 +273,7 @@ const AuthForm = () => {
                                                 id="username"
                                                 name="username"
                                                 defaultValue={username}
-                                                type="password"
+                                                type="text"
                                                 placeholder="Enter your user name"
                                                 required
                                                 onChange={usernameOnchange}
