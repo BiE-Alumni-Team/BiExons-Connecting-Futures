@@ -10,15 +10,37 @@ const Banner = () => {
 
             <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-emerald-300/30 blur-3xl" />
 
-            <div className="relative mx-auto flex min-h-[450px] max-w-7xl flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row md:px-12">
+            <div className="flex flex-col-reverse md:flex relative mx-auto min-h-[450px] max-w-7xl flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row md:px-12">
 
                 {/* LEFT CONTENT */}
                 <div className="max-w-xl text-center md:text-left">
 
                     {/* Badge */}
-                    <span className="inline-block rounded-full border border-green-700/20 bg-white/40 px-4 py-2 text-sm font-semibold text-green-800 backdrop-blur-sm">
-                        🎓 Alumni Network
-                    </span>
+                    <div className="flex flex-row gap-3">
+                        <span className="inline-block rounded-full border border-green-700/20 bg-white/40 px-4 py-2 text-sm font-bold text-green-800 backdrop-blur-sm">
+                            🎓 Alumni Network
+                        </span>
+
+                        <div className="rounded-full border border-green-700/20 bg-white/40 px-4 py-2 text-sm font-bold text-green-800 backdrop-blur-sm flex items-center gap-1">
+                            <div>
+                                <Image
+                                    src="/bau_logo.png"
+                                    alt="Bangladesh Agricultural university"
+                                    height={30}
+                                    width={30}
+                                >
+
+                                </Image>
+                            </div>
+                            <div>
+                                <Link href="https://bie.bau.edu.bd/" target="blank">
+                                    Bioinformatics Engineering, BAU
+                                </Link>
+                            </div>
+
+                        </div>
+
+                    </div>
 
                     {/* Heading */}
                     <h1 className="mt-5 text-4xl font-extrabold leading-tight text-green-950 md:text-5xl lg:text-6xl">
@@ -44,11 +66,11 @@ const Banner = () => {
                             Join Our Community
                         </Link>
 
-                        <button
+                        <Link href="/alumni"
                             className="rounded-xl border border-green-700/30 bg-white/50 px-6 py-3 font-semibold text-green-800 backdrop-blur-sm transition duration-300 hover:bg-white/80"
                         >
                             Explore Alumni
-                        </button>
+                        </Link>
 
                     </div>
 

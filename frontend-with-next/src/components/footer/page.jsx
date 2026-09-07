@@ -12,11 +12,11 @@ const Footer = () => {
 
             {/* Newsletter */}
             <div className="border-b border-[#3b3f40]">
-                <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-12">
+                <div className="flex flex-col md:flex-row mx-auto max-w-7xl items-center justify-between gap-8 px-6 py-12">
 
                     <div>
                         <h2 className="text-2xl font-semibold text-[#9df58f]">
-                            Stay connected with the BIE community
+                            Stay connected with the BiE community
                         </h2>
 
                         <p className="mt-2 text-[16px] text-gray-400">
@@ -47,6 +47,7 @@ const Footer = () => {
                     </form>
 
                 </div>
+
             </div>
 
 

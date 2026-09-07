@@ -1,11 +1,13 @@
 "use client";
 import useInputFields from "@/components/hooks/useInputFields";
+import Success from "@/components/others/success";
 import { loginUser, registerAlumni, checkInfo } from "@/service/api";
 import Link from "next/link";
 import { useState } from "react";
-import Success from "../succes/page";
+
 
 const AuthForm = () => {
+
     const [isLogin, setIsLogin] = useState(true);
     const [isSuccess, setisSuccess] = useState(false);
 
@@ -42,7 +44,6 @@ const AuthForm = () => {
             //registerAlumni(registrationAlumni);
 
             setisSuccess(true);
-
         }
         // else {
         //     loginUser(loginAlumni)
