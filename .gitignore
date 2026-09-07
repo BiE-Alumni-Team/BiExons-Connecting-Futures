@@ -1,0 +1,21 @@
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Django local database
+db.sqlite3
+db.sqlite3-journal
+
+# Environment variables and secrets
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Static files / Media uploaded during development
+media/
+staticfiles/
