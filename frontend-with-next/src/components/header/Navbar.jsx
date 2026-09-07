@@ -35,7 +35,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <div className="flex flex-end">
+                    <div className="flex flex-end items-center">
 
                         <Link href="/registration" className="hidden sm:inline btn btn-success px-5 text-white font-semibold rounded-xl pt-2">
                             Get Started!
@@ -44,7 +44,7 @@ const Navbar = () => {
                         <div className="dropdown ">
                             <div tabIndex={0} className="lg:hidden">
 
-                                <AiOutlineMenuFold className="text-black mr-3 stroke-2" />
+                                <AiOutlineMenuFold className="text-black mx-3 stroke-2" />
 
                             </div>
                             <ul
