@@ -1,4 +1,5 @@
-import Banner from "@/components/header/Banner.jsx";
+import Banner from "@/components/header/Banner";
+
 
 
 export default function Home() {
