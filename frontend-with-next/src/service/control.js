@@ -25,13 +25,3 @@ export const validateRegistration = ({
             phoneValid,
     };
 };
-
-export const validateLogin = ({
-    username,
-    password,
-}) => {
-    const usernameValid = username.trim().length > 0;
-    const passwordValid = password.length > 0;
-
-    return usernameValid && passwordValid;
-};

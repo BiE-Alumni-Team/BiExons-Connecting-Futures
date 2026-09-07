@@ -7,16 +7,18 @@ import Session from "@/components/formcomp/Session";
 import { useInputFields } from "@/components/hooks/useInputFields";
 import LoginSuccess from "@/components/others/LoginSuccess";
 import Success from "@/components/others/success";
-import { loginUser, registerUser } from "@/service/authApi";
-import { validateLogin, validateRegistration } from "@/service/control";
+import { loginUser, registerUser, validateLogin } from "@/service/authApi";
+import { validateRegistration } from "@/service/control";
 import { useState } from "react";
 
 
 const AuthForm = () => {
 
+    const [showPassword, setShowPassword] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [isSuccess, setisSuccess] = useState(false);
     const [loginsucces, setLoginSuccess] = useState(false)
+    const [loginError, setLoginError] = useState("");
 
     const [name, nameOnChange, resetName] = useInputFields("");
     const [email, emailOnChange, resetEmail] = useInputFields("");
@@ -76,21 +78,31 @@ const AuthForm = () => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isLogin) {
-            checkReg(registrationAlumni)
+            checkReg(registrationAlumni);
             registerUser(registrationAlumni);
 
             setisSuccess(true);
             resetRegistrationForm();
-        }
-        else if (isLogin) {
+        } else {
+            try {
+                const data = await loginUser(loginAlumni);
 
-            loginUser(loginAlumni)
-            setLoginSuccess(true)
-            resetLoginForm()
+                // Only runs when backend authentication succeeds
+                console.log("Login successful:", data);
+
+                setLoginSuccess(true);
+                resetLoginForm();
+
+            } catch (error) {
+                console.error("Login failed:", error);
+
+                // Show backend error to user
+                setLoginError(error.message);
+            }
         }
     };
 
@@ -251,20 +263,31 @@ const AuthForm = () => {
                                             Password
                                         </label>
 
-                                        <input
-                                            id="password"
-                                            name="password"
-                                            value={password}
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            required
-                                            onChange={passwordOnChange}
-                                            className={`w-full rounded-lg border border-gray-300
-            px-4 py-3 text-sm outline-none
+                                        <div className="relative">
+                                            <input
+                                                id="password"
+                                                name="password"
+                                                value={password}
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="Enter your password"
+                                                required
+                                                onChange={passwordOnChange}
+                                                className={`w-full rounded-lg border border-gray-300
+            px-4 py-3 pr-16 text-sm outline-none
             transition
             focus:border-green-600
             focus:ring-2 focus:ring-green-100`}
-                                        />
+                                            />
+
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2
+                   text-sm text-gray-600 hover:text-green-600"
+                                            >
+                                                {showPassword ? "Hide" : "Show"}
+                                            </button>
+                                        </div>
 
                                         {/* Password validation */}
                                         {password.length > 0 && !passwordValid && (
