@@ -7,8 +7,8 @@ import Session from "@/components/formcomp/Session";
 import { useInputFields } from "@/components/hooks/useInputFields";
 import LoginSuccess from "@/components/others/LoginSuccess";
 import Success from "@/components/others/success";
-import { loginUser, registerUser, validateLogin } from "@/service/authApi";
-import { validateRegistration } from "@/service/control";
+import { loginUser, registerUser } from "@/service/authApi";
+import { validateRegistration, validateLogin } from "@/service/control";
 import { useState } from "react";
 
 
@@ -82,7 +82,7 @@ const AuthForm = () => {
         e.preventDefault();
 
         if (!isLogin) {
-            checkReg(registrationAlumni);
+            //checkReg(registrationAlumni);
             registerUser(registrationAlumni);
 
             setisSuccess(true);
@@ -282,8 +282,8 @@ const AuthForm = () => {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute right-3 top-1/2 -translate-y-1/2
-                   text-sm text-gray-600 hover:text-green-600"
+                                                className={`absolute right-3 top-1/2 -translate-y-1/2
+                   text-sm text-gray-600 hover:text-green-600`}
                                             >
                                                 {showPassword ? "Hide" : "Show"}
                                             </button>

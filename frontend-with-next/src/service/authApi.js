@@ -48,40 +48,41 @@ export const registerUser = async ({
 }
 
 // ---------- 2. Login ----------
-export const validateLogin = ({ username, password }) => {
-  const usernameValid = username.trim().length > 0;
-  const passwordValid = password.length > 0;
-
-  return usernameValid && passwordValid;
-};
 
 // Backend login
 export const loginUser = async ({ username, password }) => {
-  const response = await fetch(
-    `${BASE_URL}/api/accounts/login/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    }
-  );
+  const response = await fetch(`${BASE_URL}/api/accounts/login/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  });
 
-  const data = await response.json();
+  const contentType = response.headers.get("content-type");
+
+  let data;
+
+  if (contentType?.includes("application/json")) {
+    data = await response.json();
+  } else {
+    const text = await response.text();
+    data = { detail: text };
+  }
 
   if (!response.ok) {
     throw new Error(
-      data.detail || data.error || "Invalid username or password"
+      data.detail ||
+      data.error ||
+      `Login failed (${response.status})`
     );
   }
 
   return data;
 };
-
 // ---------- 3. Get Profile (protected) ----------
 export async function getProfile() {
   const token = localStorage.getItem("access_token");
