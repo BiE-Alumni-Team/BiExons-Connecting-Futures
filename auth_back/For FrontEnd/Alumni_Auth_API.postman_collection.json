@@ -17,10 +17,10 @@
           "raw": "{\n    \"username\": \"testuser1\",\n    \"email\": \"test1@example.com\",\n    \"reg_no\": \"58965\",\n    \"id_no\": \"2409001\",\n    \"session\": \"2023-24\",\n    \"phone\": \"\",\n    \"password\": \"strongpass123\"\n}"
         },
         "url": {
-          "raw": "http://127.0.0.1:8000/api/accounts/register/",
-          "protocol": "http",
-          "host": ["127", "0", "0", "1"],
-          "port": "8000",
+          "raw": "https://biexons-backend.onrender.com/api/accounts/register/",
+          "protocol": "https",
+          "host": ["biexons-backend", "onrender", "com"],
+          
           "path": ["api", "accounts", "register", ""]
         }
       }
@@ -37,10 +37,10 @@
           "raw": "{\n    \"username\": \"testuser1\",\n    \"password\": \"strongpass123\"\n}"
         },
         "url": {
-          "raw": "http://127.0.0.1:8000/api/token/",
-          "protocol": "http",
-          "host": ["127", "0", "0", "1"],
-          "port": "8000",
+          "raw": "https://biexons-backend.onrender.com/api/token/",
+          "protocol": "https",
+          "host": ["biexons-backend", "onrender", "com"],
+          
           "path": ["api", "token", ""]
         }
       }
@@ -57,10 +57,10 @@
           "raw": "{\n    \"refresh\": \"PASTE_REFRESH_TOKEN_HERE\"\n}"
         },
         "url": {
-          "raw": "http://127.0.0.1:8000/api/token/refresh/",
-          "protocol": "http",
-          "host": ["127", "0", "0", "1"],
-          "port": "8000",
+          "raw": "https://biexons-backend.onrender.com/api/token/refresh/",
+          "protocol": "https",
+          "host": ["biexons-backend", "onrender", "com"],
+          
           "path": ["api", "token", "refresh", ""]
         }
       }
@@ -73,10 +73,10 @@
           { "key": "Authorization", "value": "Bearer PASTE_ACCESS_TOKEN_HERE" }
         ],
         "url": {
-          "raw": "http://127.0.0.1:8000/api/accounts/profile/",
-          "protocol": "http",
-          "host": ["127", "0", "0", "1"],
-          "port": "8000",
+          "raw": "https://biexons-backend.onrender.com/api/accounts/profile/",
+          "protocol": "https",
+          "host": ["biexons-backend", "onrender", "com"],
+          
           "path": ["api", "accounts", "profile", ""]
         }
       }

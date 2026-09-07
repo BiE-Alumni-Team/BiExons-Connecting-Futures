@@ -3,14 +3,15 @@
 Backend: Django + Django REST Framework + JWT (SimpleJWT)
 Database: PostgreSQL (Neon, cloud-hosted)
 
-## Base URL (Development)
+## Base URL (Live — Deployed)
 
 ```
-http://127.0.0.1:8000
+https://biexons-backend.onrender.com
 ```
 
-> Backend developer must have `python manage.py runserver` running while you test.
-> This URL will change once the backend is deployed — will be updated here when that happens.
+> The backend is now deployed and running 24/7 — you don't need anyone to keep a local server running.
+>
+> **Note on free hosting:** This is hosted on Render's free tier. If the API hasn't been called in the last 15 minutes, the server "sleeps" and the **first** request after that can take 30–50 seconds to respond while it wakes up. This is normal — just show a loading state and it will speed up after the first call.
 
 ---
 
