@@ -1,4 +1,5 @@
 import Banner from "@/components/header/Banner";
+import LoginSuccess from "@/components/others/LoginSuccess";
 
 
 

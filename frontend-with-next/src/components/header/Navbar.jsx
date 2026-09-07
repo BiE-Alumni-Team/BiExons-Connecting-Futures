@@ -58,8 +58,8 @@ const Navbar = () => {
                 <div className="navbar-start">
 
                     <a className="text-4xl text-black font-extrabold">
-                        <Image width={175} height={70}
-                            src="/logo.png" alt="BiExOn"></Image>
+                        <Image height={70} width={175}
+                            src="/logo.png" alt="BiExOn" className="w-40"></Image>
                     </a>
 
                 </div>
