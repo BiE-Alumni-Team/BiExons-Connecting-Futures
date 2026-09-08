@@ -25,7 +25,7 @@ const Navbar = () => {
 
             <div className="navbar shadow-sm bg-linear-to-r from-green-200 to-green-100 text-black font-semibold px-10">
 
-                <div>
+                <div className="hidden">
                     <label className="swap swap-rotate">
                         {/* checkbox controls the state */}
                         <input

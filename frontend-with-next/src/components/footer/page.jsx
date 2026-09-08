@@ -63,17 +63,17 @@ const Footer = () => {
                             {/* Logo */}
                             <div className="flex h-10 w-10 items-center justify-center
                               rounded-md bg-white text-xs font-bold text-[#17651d]">
-                                ✳BIE
+                                ✳BiE
                             </div>
 
                             <span className="text-[30px] font-bold text-[#a1f293]">
-                                BIE
+                                BiE
                             </span>
                         </div>
 
-                        <p className="mt-7 text-[16px] text-gray-400">
+                        <Link href="https://bau.edu.bd/" target="blank" className="mt-7 text-[16px] text-gray-400">
                             Bangladesh Agricultural University
-                        </p>
+                        </Link>
 
                         <p className="mt-5 max-w-[270px] leading-6 text-gray-400">
                             Connecting graduates, fostering research collaboration, and
@@ -131,11 +131,11 @@ const Footer = () => {
                         </h3>
 
                         <ul className="space-y-5 text-[16px]">
-                            <li><Link href="#" className="hover:text-[#9df58f]">Home</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Alumni Directory</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Faculty</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Opportunities</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Events Archive</Link></li>
+                            <li><Link href="/" className="hover:text-[#9df58f]">Home</Link></li>
+                            <li><Link href="/alumni" className="hover:text-[#9df58f]">Alumni Directory</Link></li>
+                            <li><Link href="https://csm.bau.edu.bd/pages/faculty" className="hover:text-[#9df58f]">Faculty</Link></li>
+                            <li><Link href="/opportunity" className="hover:text-[#9df58f]">Opportunities</Link></li>
+                            <li><Link href="/events" className="hover:text-[#9df58f]">Events Archive</Link></li>
                             <li><Link href="#" className="hover:text-[#9df58f]">About Us</Link></li>
                         </ul>
                     </div>
@@ -149,11 +149,11 @@ const Footer = () => {
                         </h3>
 
                         <ul className="space-y-5 text-[16px]">
-                            <li><Link href="#" className="hover:text-[#9df58f]">Join the Network</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Find an Alumni</Link></li>
+                            <li><Link href="/registration" className="hover:text-[#9df58f]">Join the Network</Link></li>
+                            <li><Link href="/alumni" className="hover:text-[#9df58f]">Find an Alumni</Link></li>
                             <li><Link href="#" className="hover:text-[#9df58f]">Mentorship Program</Link></li>
                             <li><Link href="#" className="hover:text-[#9df58f]">Post an Opportunity</Link></li>
-                            <li><Link href="#" className="hover:text-[#9df58f]">Alumni Stories</Link></li>
+                            <li><Link href="/experience" className="hover:text-[#9df58f]">Alumni Stories</Link></li>
                             <li><Link href="#" className="hover:text-[#9df58f]">Help & Support</Link></li>
                         </ul>
                     </div>

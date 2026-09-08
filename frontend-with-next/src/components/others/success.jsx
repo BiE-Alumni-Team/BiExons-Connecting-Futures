@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Success = () => {
+const Success = ({ setIsLogin, setisSuccess }) => {
     const router = useRouter();
 
     return (
@@ -56,12 +56,16 @@ const Success = () => {
 
                     {/* Login Button */}
                     <div className="flex flex-col">
-                        <Link
-                            href="/registration"
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIsLogin(true)
+                                setisSuccess(false)
+                            }}
                             className=" w-full btn btn-success text-white font-semibold py-3.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-green-200 hover:-translate-y-0.5"
                         >
                             Continue to Login
-                        </Link>
+                        </button>
 
                         {/* Home Button */}
                         <Link href="/alumni"
