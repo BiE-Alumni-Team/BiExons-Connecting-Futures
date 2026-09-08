@@ -77,34 +77,38 @@ const AuthForm = () => {
         resetConfirmPassword();
     };
 
+    validateRegistration(registrationAlumni);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isLogin) {
-            //checkReg(registrationAlumni);
             registerUser(registrationAlumni);
 
             setisSuccess(true);
             resetRegistrationForm();
         } else {
             try {
-                const data = await loginUser(loginAlumni);
+                const data = await loginUser(username, password);
 
-                // Only runs when backend authentication succeeds
-                console.log("Login successful:", data);
-
-                setLoginSuccess(true);
-                resetLoginForm();
+                if (data?.access && data?.refresh) {
+                    // Login successful
+                    setLoginSuccess(true);
+                    setLoginError("");
+                    resetLoginForm();
+                } else {
+                    // No tokens returned
+                    setLoginSuccess(false);
+                    setLoginError("Username or password is incorrect");
+                }
 
             } catch (error) {
-                console.error("Login failed:", error);
-
-                // Show backend error to user
-                setLoginError(error.message);
+                // Backend rejected login
+                setLoginSuccess(false);
+                setLoginError("Username or password is incorrect");
             }
         }
-    };
+    }
 
     const emailinput = <div>
         <label
@@ -289,6 +293,12 @@ const AuthForm = () => {
                                             </button>
                                         </div>
 
+                                        {isLogin && loginError && (
+                                            <p className="mt-2 text-sm text-red-600">
+                                                {loginError}
+                                            </p>
+                                        )}
+
                                         {/* Password validation */}
                                         {password.length > 0 && !passwordValid && (
                                             <p className="mt-1 text-sm text-red-500">
@@ -398,5 +408,4 @@ const AuthForm = () => {
         </div>
     );
 };
-
 export default AuthForm;

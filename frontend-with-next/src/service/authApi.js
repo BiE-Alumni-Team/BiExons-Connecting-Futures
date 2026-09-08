@@ -50,16 +50,11 @@ export const registerUser = async ({
 // ---------- 2. Login ----------
 
 // Backend login
-export const loginUser = async ({ username, password }) => {
-  const response = await fetch(`${BASE_URL}/api/accounts/login/`, {
+export const loginUser = async (username, password) => {
+  const response = await fetch(`${BASE_URL}/api/token/`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
   });
 
   const contentType = response.headers.get("content-type");
