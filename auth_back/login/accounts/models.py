@@ -1,7 +1,36 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, first_name, last_name, reg_no, id_no, session, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email is required")
+        email = self.normalize_email(email)
+        user = self.model(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            reg_no=reg_no,
+            id_no=id_no,
+            session=session,
+            **extra_fields
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, first_name, last_name, reg_no, id_no, session, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, first_name, last_name, reg_no, id_no, session, password, **extra_fields)
+
+
+
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
     reg_no = models.CharField(max_length=20, unique=True)
     id_no = models.CharField(max_length=20, unique=True)
     session = models.CharField(max_length=20)
@@ -12,5 +41,14 @@ class User(AbstractUser):
     designation = models.CharField(max_length=100, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
 
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'reg_no', 'id_no', 'session']
+
+
     def __str__(self):
-        return f"{self.username} ({self.reg_no})"
+        return f"{self.first_name} {self.last_name} ({self.email})"
