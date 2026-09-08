@@ -57,10 +57,10 @@ const Navbar = () => {
 
                 <div className="navbar-start">
 
-                    <a className="text-4xl text-black font-extrabold">
+                    <Link href="/" className="text-4xl text-black font-extrabold">
                         <Image height={70} width={175}
                             src="/logo.png" alt="BiExOn" className="w-40"></Image>
-                    </a>
+                    </Link>
 
                 </div>
                 <div className="navbar-center hidden lg:flex">

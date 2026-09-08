@@ -11,6 +11,7 @@ import Success from "@/components/others/success";
 import { loginUser, registerUser } from "@/service/authApi";
 import { validateRegistration, validateLogin } from "@/service/control";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 const AuthForm = () => {
@@ -23,8 +24,10 @@ const AuthForm = () => {
     const [isSuccess, setisSuccess] = useState(false);
     const [loginsucces, setLoginSuccess] = useState(false)
     const [loginError, setLoginError] = useState("");
+    const [regerror, setregError] = useState("");
 
     const [name, nameOnChange, resetName] = useInputFields("");
+    const [lastname, lastnameOnChange, resetlastName] = useInputFields("");
     const [email, emailOnChange, resetEmail] = useInputFields("");
     const [id, idOnchange, resetId] = useInputFields("");
     const [reg, regOnchange, resetReg] = useInputFields("");
@@ -35,7 +38,8 @@ const AuthForm = () => {
     const [username, usernameOnchange, resetUsername] = useInputFields("");
 
     const registrationAlumni = {
-        "username": name,
+        "firstname": name,
+        "lastname": lastname,
         "email": email,
         "reg_no": reg,
         "id_no": id,
@@ -72,6 +76,7 @@ const AuthForm = () => {
 
     const resetRegistrationForm = () => {
         resetName();
+        resetlastName();
         resetEmail();
         resetId();
         resetReg();
@@ -87,11 +92,22 @@ const AuthForm = () => {
         e.preventDefault();
 
         if (!isLogin) {
-            registerUser(registrationAlumni);
+            try {
 
-            setisSuccess(true);
-            resetRegistrationForm();
-        } else {
+                setregError("");
+                // Wait for backend response
+                const data = await registerUser(registrationAlumni);
+
+                setisSuccess(true);
+                resetRegistrationForm();
+
+            } catch (error) {
+                setregError("Something went wrong. Please try again later.");
+                toast.error(regerror)
+            }
+        }
+
+        else {
             setIsLoading(true);
 
             try {
@@ -206,7 +222,8 @@ const AuthForm = () => {
                                         {!isLogin && (
                                             <>
                                                 {/* Name */}
-                                                <Name name={name} nameOnChange={nameOnChange} />
+                                                <Name name={name} nameOnChange={nameOnChange}
+                                                    lastname={lastname} lastnameOnChange={lastnameOnChange} />
 
                                                 {/* Student ID */}
                                                 <Id id={id}

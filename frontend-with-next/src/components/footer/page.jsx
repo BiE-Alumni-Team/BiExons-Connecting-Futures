@@ -29,7 +29,7 @@ const Footer = () => {
                         <input
                             type="email"
                             placeholder="Enter your email address"
-                            className="h-[51px] w-[268px] rounded-lg border border-[#55595a]
+                            className="h-[51px] w-[268px] rounded-lg border-2 border-[#55595a]
                          bg-[#292d2e] px-4 text-gray-200 outline-none
                          placeholder:text-gray-500
                          focus:border-[#72d96b]"
@@ -37,8 +37,8 @@ const Footer = () => {
 
                         <button
                             type="submit"
-                            className="h-[51px] rounded-lg bg-[#12651c] px-6
-                         font-medium text-white transition
+                            className="h-[51px] rounded-lg btn btn-success px-6
+                         text-white transition font-semibold
                          hover:bg-[#177923]"
                         >
                             Subscribe
@@ -54,7 +54,7 @@ const Footer = () => {
             {/* Main Footer */}
             <div className="mx-auto max-w-7xl px-6 py-16">
 
-                <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
 
                     {/* Brand */}
                     <div>
@@ -122,7 +122,6 @@ const Footer = () => {
                         </div>
                     </div>
 
-
                     {/* Explore */}
                     <div>
                         <h3 className="mb-4 inline-block border-b border-[#45494a]
@@ -184,7 +183,7 @@ const Footer = () => {
                                 />
 
                                 <span className="text-[16px] text-gray-400">
-                                    bie.alumni@bau.edu.bd
+                                    bytetrio.bau@gmail.com
                                 </span>
                             </div>
 
@@ -209,38 +208,24 @@ const Footer = () => {
 
             {/* Bottom bar */}
             <div className="border-t border-[#222627] bg-[#171a1b]">
+
                 <div className="mx-auto flex max-w-7xl flex-col
                         justify-between gap-4 px-6 py-5
-                        md:flex-row md:items-center">
+                        md:flex-row md:items-start">
 
-                    <p className="max-w-[600px] text-sm leading-5 text-gray-400">
-                        © 2024 Bioinformatics Engineering Alumni Network,
-                        Bangladesh Agricultural University. All rights reserved.
-                    </p>
+                    <div className="max-w-[600px] text-sm leading-5 text-gray-400 flex flex-col">
+                        <span> © 2024 Bioinformatics Engineering Alumni Network,</span>
+                        <span className="text-center">_byteTrio. All rights reserved.</span>
+                    </div>
 
-                    <div className="flex flex-wrap items-center gap-6 text-sm">
-
-                        <Link href="#" className="hover:text-white">
-                            Privacy Policy
-                        </Link>
-
-                        <span className="hidden h-5 w-px bg-gray-600 md:block" />
-
-                        <Link href="#" className="hover:text-white">
-                            Terms of Service
-                        </Link>
-
-                        <span className="hidden h-5 w-px bg-gray-600 md:block" />
-
-                        <Link href="#" className="hover:text-white">
-                            Contact Us
-                        </Link>
-
-                        <span className="hidden h-5 w-px bg-gray-600 md:block" />
+                    <div className="flex flex-wrap items-center gap-6 text-sm justify-between">
 
                         <span className="font-medium text-[#8ee782]">
-                            Built for the BIE community.
+                            Built for the BiE community.
                         </span>
+
+
+                        <span className="font-medium text-[#8ee782]">Develop By _byteTrio</span>
 
                     </div>
 
