@@ -145,7 +145,7 @@ const AuthForm = () => {
             id="email"
             name="email"
             type="email"
-            defaultValue={email}
+            value={email}
             placeholder="example@email.com"
             onChange={emailOnChange}
             required
@@ -267,7 +267,7 @@ const AuthForm = () => {
                                                     <input
                                                         id="username"
                                                         name="username"
-                                                        defaultValue={username}
+                                                        value={username}
                                                         type="email"
                                                         placeholder="Enter your email"
                                                         required
