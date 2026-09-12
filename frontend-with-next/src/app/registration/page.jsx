@@ -38,8 +38,8 @@ const AuthForm = () => {
     const [username, usernameOnchange, resetUsername] = useInputFields("");
 
     const registrationAlumni = {
-        "firstname": name,
-        "lastname": lastname,
+        "first_name": name,
+        "last_name": lastname,
         "email": email,
         "reg_no": reg,
         "id_no": id,
