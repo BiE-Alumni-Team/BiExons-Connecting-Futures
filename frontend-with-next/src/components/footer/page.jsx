@@ -214,7 +214,7 @@ const Footer = () => {
                         md:flex-row md:items-start">
 
                     <div className="max-w-[600px] text-sm leading-5 text-gray-400 flex flex-col">
-                        <span> © 2024 Bioinformatics Engineering Alumni Network,</span>
+                        <span className="text-[#8ee782]"> © 2024 Bioinformatics Engineering Alumni Network,</span>
                         <span className="text-center">_byteTrio. All rights reserved.</span>
                     </div>
 
