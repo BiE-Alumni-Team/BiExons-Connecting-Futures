@@ -15,8 +15,8 @@ const BASE_URL =
 
 // ---------- 1. Register ----------
 export const registerUser = async ({
-  firstname,
-  lastname,
+  first_name,
+  last_name,
   email,
   reg_no,
   id_no,
@@ -28,8 +28,8 @@ export const registerUser = async ({
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      firstname,
-      lastname,
+      first_name,
+      last_name,
       email,
       reg_no,
       id_no,
