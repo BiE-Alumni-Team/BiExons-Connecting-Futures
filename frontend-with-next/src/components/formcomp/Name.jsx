@@ -1,6 +1,6 @@
 
 
-const Name = ({ name, nameOnChange, lastName, lastNameOnChange }) => {
+const Name = ({ name, nameOnChange, lastname, lastnameOnChange }) => {
     return (
         <div className="flex gap-4">
             {/* First Name */}
@@ -15,7 +15,7 @@ const Name = ({ name, nameOnChange, lastName, lastNameOnChange }) => {
                 <input
                     id="name"
                     name="name"
-                    defaultValue={name}
+                    value={name}
                     type="text"
                     placeholder="Enter your first name"
                     required
@@ -38,11 +38,11 @@ const Name = ({ name, nameOnChange, lastName, lastNameOnChange }) => {
                 <input
                     id="lastName"
                     name="lastName"
-                    defaultValue={lastName}
+                    value={lastname}
                     type="text"
                     placeholder="Enter your last name"
                     required
-                    onChange={lastNameOnChange}
+                    onChange={lastnameOnChange}
                     className="w-full rounded-lg border border-gray-300
                        px-4 py-3 text-sm outline-none transition
                        focus:border-green-600 focus:ring-2 focus:ring-green-100"

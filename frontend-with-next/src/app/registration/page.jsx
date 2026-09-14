@@ -92,6 +92,7 @@ const AuthForm = () => {
         e.preventDefault();
 
         if (!isLogin) {
+            setIsLoading(true)
             try {
 
                 setregError("");
@@ -105,6 +106,7 @@ const AuthForm = () => {
                 setregError("Something went wrong. Please try again later.");
                 toast.error(regerror)
             }
+            setIsLoading(false)
         }
 
         else {
@@ -145,7 +147,7 @@ const AuthForm = () => {
             id="email"
             name="email"
             type="email"
-            defaultValue={email}
+            value={email}
             placeholder="example@email.com"
             onChange={emailOnChange}
             required
@@ -267,7 +269,7 @@ const AuthForm = () => {
                                                     <input
                                                         id="username"
                                                         name="username"
-                                                        defaultValue={username}
+                                                        value={username}
                                                         type="email"
                                                         placeholder="Enter your email"
                                                         required

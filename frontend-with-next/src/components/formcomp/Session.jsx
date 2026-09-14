@@ -15,7 +15,7 @@ const Session = ({ session, sessionOnchange }) => {
                 <input
                     id="session"
                     name="registrationNo"
-                    defaultValue={session}
+                    value={session}
                     type="text"
                     placeholder="e.g: 2023-2024"
                     required onChange={sessionOnchange}

@@ -15,7 +15,7 @@ const Id = ({ id, idOnchange }) => {
                 <input
                     id="studentId"
                     name="studentId"
-                    defaultValue={id}
+                    value={id}
                     type="text"
                     placeholder="Enter your student ID"
                     required onChange={idOnchange}

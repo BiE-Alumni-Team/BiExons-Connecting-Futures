@@ -15,7 +15,7 @@ const Reg = ({ reg, regOnchange }) => {
                 <input
                     id="registrationNo"
                     name="registrationNo"
-                    defaultValue={reg}
+                    value={reg}
                     type="text"
                     placeholder="Enter registration number"
                     required onChange={regOnchange}
