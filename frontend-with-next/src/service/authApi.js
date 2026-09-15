@@ -52,11 +52,11 @@ export const registerUser = async ({
 // ---------- 2. Login ----------
 
 // Backend login
-export const loginUser = async (username, password) => {
+export const loginUser = async (email, password) => {
   const response = await fetch(`${BASE_URL}/api/token/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
 
   const contentType = response.headers.get("content-type");

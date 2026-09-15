@@ -35,7 +35,7 @@ const AuthForm = () => {
     const [mobile, mobileOnchange, resetMobile] = useInputFields("");
     const [password, passwordOnChange, resetPassword] = useInputFields("");
     const [confirmpassword, confirmpasswordOnchange, resetConfirmPassword] = useInputFields("");
-    const [username, usernameOnchange, resetUsername] = useInputFields("");
+    // const [username, usernameOnchange, resetUsername] = useInputFields("");
 
     const registrationAlumni = {
         "first_name": name,
@@ -49,7 +49,7 @@ const AuthForm = () => {
     }
 
     const loginAlumni = {
-        "username": username,
+        "email": email,
         "password": password
     }
 
@@ -57,20 +57,22 @@ const AuthForm = () => {
         passwordValid,
         confirmPasswordValid,
         phoneValid,
-        registrationValid,
+        idValid,
+        registrationValid
     } = validateRegistration({
         password,
         confirmpassword,
         mobile,
+        id
     });
 
     const loginValid = validateLogin({
-        username,
+        email,
         password,
     });
 
     const resetLoginForm = () => {
-        resetUsername();
+        resetEmail();
         resetPassword();
     };
 
@@ -87,6 +89,7 @@ const AuthForm = () => {
     };
 
     validateRegistration(registrationAlumni);
+    validateLogin(loginValid);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -258,30 +261,7 @@ const AuthForm = () => {
                                         {
                                             isLogin && (
 
-                                                <div>
-                                                    <label
-                                                        htmlFor="username"
-                                                        className="mb-1.5 block text-sm font-medium text-gray-700"
-                                                    >
-                                                        e-mail
-                                                    </label>
-
-                                                    <input
-                                                        id="username"
-                                                        name="username"
-                                                        value={username}
-                                                        type="email"
-                                                        placeholder="Enter your email"
-                                                        required
-                                                        onChange={usernameOnchange}
-                                                        className={`w-full rounded-lg border border-gray-300
-                         px-4 py-3 text-sm outline-none
-                         transition
-                         focus:border-green-600
-                         focus:ring-2 focus:ring-green-100 
-                         `}
-                                                    />
-                                                </div>
+                                                emailinput
 
                                             )
                                         }
