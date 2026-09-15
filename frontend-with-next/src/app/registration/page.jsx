@@ -66,10 +66,10 @@ const AuthForm = () => {
         id
     });
 
-    const loginValid = validateLogin({
-        email,
-        password,
-    });
+    // const loginValid = validateLogin({
+    //     email,
+    //     password,
+    // });
 
     const resetLoginForm = () => {
         resetEmail();
@@ -105,17 +105,18 @@ const AuthForm = () => {
                 resetRegistrationForm();
 
             } catch (error) {
+                setIsLoading(false)
                 setregError("Something went wrong. Please try again later.");
                 toast.error(regerror)
             }
-            setIsLoading(false)
+            //setIsLoading(false)
         }
 
         else {
             setIsLoading(true);
 
             try {
-                const data = await loginUser(username, password);
+                const data = await loginUser(email, password);
 
                 if (data?.access && data?.refresh) {
                     // Login successful
@@ -130,10 +131,11 @@ const AuthForm = () => {
 
             } catch (error) {
                 // Backend rejected login
+                setIsLoading(false);
                 setLoginSuccess(false);
                 setLoginError("Username or password is incorrect");
-                setIsLoading(false);
             }
+            setIsLoading(false);
         }
     }
 
