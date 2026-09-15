@@ -1,17 +1,6 @@
-// authApi.js
-// Drop this file into your React project (e.g. src/api/authApi.js)
-// and import the functions you need in your components.
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://biexons-backend.onrender.com";
+process.env.NEXT_PUBLIC_API_BASE_URL || "https://biexons-backend.onrender.com";
 
-// Note: this is hosted on Render's free tier. If idle for 15+ minutes, the
-// server "sleeps" and the first request after that can take 30-50 seconds
-// to wake up. Show a loading indicator on first load / first login attempt.
-//
-// Next.js setup: add this to .env.local in the project root:
-//   NEXT_PUBLIC_API_BASE_URL=https://biexons-backend.onrender.com
-// (Must be prefixed with NEXT_PUBLIC_ to be readable in the browser.)
 
 // ---------- 1. Register ----------
 export const registerUser = async ({

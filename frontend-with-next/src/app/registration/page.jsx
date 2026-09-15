@@ -109,7 +109,7 @@ const AuthForm = () => {
                 setregError("Something went wrong. Please try again later.");
                 toast.error(regerror)
             }
-            //setIsLoading(false)
+            setIsLoading(false)
         }
 
         else {
