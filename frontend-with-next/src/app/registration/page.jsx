@@ -66,10 +66,10 @@ const AuthForm = () => {
         id
     });
 
-    // const loginValid = validateLogin({
-    //     email,
-    //     password,
-    // });
+    const loginValid = validateLogin({
+        email,
+        password,
+    });
 
     const resetLoginForm = () => {
         resetEmail();
