@@ -89,7 +89,6 @@ const AuthForm = () => {
     };
 
     validateRegistration(registrationAlumni);
-    validateLogin(loginValid);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
