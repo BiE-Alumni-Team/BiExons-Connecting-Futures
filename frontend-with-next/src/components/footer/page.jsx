@@ -173,33 +173,35 @@ const Footer = () => {
                             <li><Link href="#" className="hover:text-[#9df58f]">Terms of Service</Link></li>
                         </ul>
 
-                        {/* Contact box */}
-                        <div className="mt-6 rounded-lg bg-[#202425] p-4">
 
-                            <div className="flex items-start gap-3">
-                                <Mail
-                                    size={21}
-                                    className="mt-0.5 shrink-0 text-[#8df17e]"
-                                />
+                    </div>
 
-                                <span className="text-[16px] text-gray-400">
-                                    bytetrio.bau@gmail.com
-                                </span>
-                            </div>
+                    {/* Contact box */}
+                    <div className="mt-6 rounded-lg p-4">
 
-                            <div className="mt-4 flex items-start gap-3">
-                                <MapPin
-                                    size={22}
-                                    className="mt-0.5 shrink-0 text-[#8df17e]"
-                                />
+                        <div className="flex items-start gap-3">
+                            <Mail
+                                size={21}
+                                className="mt-0.5 shrink-0 text-[#8df17e]"
+                            />
 
-                                <span className="text-[16px] leading-6 text-gray-400">
-                                    Bangladesh Agricultural University,
-                                    Mymensingh, Bangladesh
-                                </span>
-                            </div>
-
+                            <span className="text-[16px] text-gray-400">
+                                bytetrio.bau@gmail.com
+                            </span>
                         </div>
+
+                        <div className="mt-4 flex items-start gap-3">
+                            <MapPin
+                                size={22}
+                                className="mt-0.5 shrink-0 text-[#8df17e]"
+                            />
+
+                            <span className="text-[16px] leading-6 text-gray-400">
+                                Bangladesh Agricultural University,
+                                Mymensingh, Bangladesh
+                            </span>
+                        </div>
+
                     </div>
 
                 </div>
@@ -213,7 +215,7 @@ const Footer = () => {
                         justify-between gap-4 px-6 py-5
                         md:flex-row md:items-start">
 
-                    <div className="max-w-[600px] text-sm leading-5 text-gray-400 flex flex-col">
+                    <div className="mw-[600px] text-sm leading-5 text-gray-400 flex flex-col">
                         <span className="text-[#8ee782]"> © 2024 Bioinformatics Engineering Alumni Network,</span>
                         <span className="text-center">_byteTrio. All rights reserved.</span>
                     </div>
