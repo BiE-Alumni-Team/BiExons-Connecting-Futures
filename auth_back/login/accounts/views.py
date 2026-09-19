@@ -5,6 +5,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import RegisterSerializer, UserSerializer
 from .models import Education, ProfessionalLink, WorkExperience
 from .serializers import EducationSerializer, ProfessionalLinkSerializer, WorkExperienceSerializer
+from .models import Publication
+from .serializers import PublicationSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -74,3 +76,22 @@ class WorkExperienceDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return WorkExperience.objects.filter(user=self.request.user)
+
+
+class PublicationListCreateView(generics.ListCreateAPIView):
+    serializer_class = PublicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Publication.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class PublicationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PublicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Publication.objects.filter(user=self.request.user)
