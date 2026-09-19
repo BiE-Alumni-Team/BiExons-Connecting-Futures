@@ -60,3 +60,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.email})"
+
+class Education(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education')
+    degree = models.CharField(max_length=200)
+    institution = models.CharField(max_length=200)
+    department = models.CharField(max_length=200, blank=True, null=True)
+    specialization = models.CharField(max_length=300, blank=True, null=True)
+    start_year = models.IntegerField()
+    end_year = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.degree} - {self.institution}"

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
+from .models import User, Education
+
 User = get_user_model()
 
 
@@ -31,3 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
             'profile_photo', 'is_verified',
             'location', 'about_me', 'mentorship_available', 'job_referral_available',
         ]
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = ['id', 'degree', 'institution', 'department', 'specialization', 'start_year', 'end_year']
