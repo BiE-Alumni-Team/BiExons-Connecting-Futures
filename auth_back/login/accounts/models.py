@@ -27,6 +27,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    #   Basic Info
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -34,10 +35,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     id_no = models.CharField(max_length=20, unique=True)
     session = models.CharField(max_length=20)
     batch = models.CharField(max_length=20, blank=True, null=True)
+    
+    #   Details or About
     phone = models.CharField(max_length=15, blank=True, null=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     workplace = models.CharField(max_length=200, blank=True, null=True)
     designation = models.CharField(max_length=100, blank=True, null=True)
+    location = models.CharField(max_length=200, blank=True, null=True)
+    about_me = models.TextField(blank=True, null=True)
+    mentorship_available = models.BooleanField(default=False)
+    job_referral_available = models.BooleanField(default=False)
+    
+    #   auth
     is_verified = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)

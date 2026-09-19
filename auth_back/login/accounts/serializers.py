@@ -29,4 +29,5 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'email', 'first_name', 'last_name', 'reg_no', 'id_no',
             'session', 'phone', 'workplace', 'designation',
             'profile_photo', 'is_verified',
+            'location', 'about_me', 'mentorship_available', 'job_referral_available',
         ]
