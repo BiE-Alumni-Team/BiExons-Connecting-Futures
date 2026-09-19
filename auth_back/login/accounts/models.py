@@ -61,6 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.email})"
 
+
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education')
     degree = models.CharField(max_length=200)
@@ -72,6 +73,7 @@ class Education(models.Model):
 
     def __str__(self):
         return f"{self.degree} - {self.institution}"
+
     
 class ProfessionalLink(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='professional_links')
@@ -100,3 +102,16 @@ class WorkExperience(models.Model):
 
     def __str__(self):
         return f"{self.title} at {self.company}"
+
+
+class Publication(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publications')
+    doi = models.CharField(max_length=200)
+    title = models.CharField(max_length=500, blank=True, null=True)
+    authors = models.CharField(max_length=500, blank=True, null=True)
+    journal = models.CharField(max_length=300, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title or self.doi
