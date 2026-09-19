@@ -33,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             'profile_photo', 'is_verified',
             'location', 'about_me', 'mentorship_available', 'job_referral_available',
         ]
+        read_only_fields = ['email', 'reg_no', 'id_no']
 
     def validate_profile_photo(self, value):
         max_size = 5 * 1024 * 1024
