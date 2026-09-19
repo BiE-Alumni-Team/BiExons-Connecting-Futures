@@ -34,6 +34,13 @@ class UserSerializer(serializers.ModelSerializer):
             'location', 'about_me', 'mentorship_available', 'job_referral_available',
         ]
 
+    def validate_profile_photo(self, value):
+        max_size = 5 * 1024 * 1024
+        if value and value.size > max_size:
+            raise serializers.ValidationError("Image size must not exceed 5MB.")
+        return value
+
+
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
