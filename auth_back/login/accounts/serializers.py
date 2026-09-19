@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from .models import User, Education
+from .models import User, Education, ProfessionalLink, WorkExperience
 
 User = get_user_model()
 
@@ -46,3 +46,14 @@ class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
         fields = ['id', 'degree', 'institution', 'department', 'specialization', 'start_year', 'end_year']
+
+class ProfessionalLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfessionalLink
+        fields = ['id', 'platform', 'url']
+
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        fields = ['id', 'title', 'company', 'employment_type', 'start_date', 'end_date', 'primary_focus', 'skills']

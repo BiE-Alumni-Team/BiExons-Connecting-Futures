@@ -72,3 +72,31 @@ class Education(models.Model):
 
     def __str__(self):
         return f"{self.degree} - {self.institution}"
+    
+class ProfessionalLink(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='professional_links')
+    platform = models.CharField(max_length=100)   # "LinkedIn", "GitHub", "Google Scholar", "ResearchGate"
+    url = models.URLField()
+
+    def __str__(self):
+        return f"{self.platform} - {self.user.email}"
+
+
+class WorkExperience(models.Model):
+    EMPLOYMENT_CHOICES = [
+        ('full_time', 'Full-time'),
+        ('part_time', 'Part-time'),
+        ('contract', 'Contract'),
+        ('internship', 'Internship'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='experience')
+    title = models.CharField(max_length=200)
+    company = models.CharField(max_length=200)
+    employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_CHOICES, default='full_time')
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)   # null = "Present"
+    primary_focus = models.TextField(blank=True, null=True)
+    skills = models.CharField(max_length=500, blank=True, null=True)  # comma-separated
+
+    def __str__(self):
+        return f"{self.title} at {self.company}"
