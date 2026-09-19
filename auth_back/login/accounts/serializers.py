@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-
 from .models import User, Education, ProfessionalLink, WorkExperience
+from .models import Publication
+from .utils import fetch_doi_metadata
 
 User = get_user_model()
 
@@ -57,3 +58,25 @@ class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkExperience
         fields = ['id', 'title', 'company', 'employment_type', 'start_date', 'end_date', 'primary_focus', 'skills']
+
+
+class PublicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publication
+        fields = ['id', 'doi', 'title', 'authors', 'journal', 'year', 'link']
+        read_only_fields = ['title', 'authors', 'journal', 'year', 'link']
+
+    def create(self, validated_data):
+        doi = validated_data.get('doi')
+        metadata = fetch_doi_metadata(doi)
+
+        if metadata:
+            validated_data['title'] = metadata['title']
+            validated_data['authors'] = metadata['authors']
+            validated_data['journal'] = metadata['journal']
+            validated_data['year'] = metadata['year']
+            validated_data['link'] = metadata['link']
+        else:
+            validated_data['title'] = "Unable to fetch metadata — please verify the DOI"
+
+        return super().create(validated_data)
