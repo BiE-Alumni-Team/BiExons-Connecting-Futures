@@ -82,6 +82,8 @@ class PublicationSerializer(serializers.ModelSerializer):
         except Exception:
             metadata = None
 
+        validated_data.pop('link', None)
+
         if metadata:
             validated_data['title'] = metadata.get('title') or ''
             validated_data['authors'] = metadata.get('authors') or ''
