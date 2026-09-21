@@ -107,8 +107,8 @@ class WorkExperience(models.Model):
 class Publication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publications')
     doi = models.CharField(max_length=200)
-    title = models.CharField(max_length=500, blank=True, null=True)
-    authors = models.CharField(max_length=500, blank=True, null=True)
+    title = models.TextField(blank=True, null=True)
+    authors = models.TextField(blank=True, null=True)
     journal = models.CharField(max_length=300, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)

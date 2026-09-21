@@ -85,9 +85,9 @@ class PublicationSerializer(serializers.ModelSerializer):
         validated_data.pop('link', None)
 
         if metadata:
-            validated_data['title'] = metadata.get('title') or ''
-            validated_data['authors'] = metadata.get('authors') or ''
-            validated_data['journal'] = metadata.get('journal') or ''
+            validated_data['title'] = (metadata.get('title') or '')[:500]
+            validated_data['authors'] = (metadata.get('authors') or '')[:500]
+            validated_data['journal'] = (metadata.get('journal') or '')[:300]
             validated_data['year'] = metadata.get('year')
             validated_data['link'] = metadata.get('link') or f"https://doi.org/{clean_doi}"
         else:
