@@ -46,7 +46,8 @@ class UserSerializer(serializers.ModelSerializer):
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
-        fields = ['id', 'degree', 'institution', 'department', 'specialization', 'start_year', 'end_year']
+        fields = ['id', 'degree', 'institution', 'department', 'specialization', 'timeline']
+
 
 class ProfessionalLinkSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,7 +58,7 @@ class ProfessionalLinkSerializer(serializers.ModelSerializer):
 class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkExperience
-        fields = ['id', 'title', 'company', 'employment_type', 'start_date', 'end_date', 'primary_focus', 'skills']
+        fields = ['id', 'designation', 'company', 'employment_type', 'timeline', 'primary_focus', 'skills']
 
 
 class PublicationSerializer(serializers.ModelSerializer):

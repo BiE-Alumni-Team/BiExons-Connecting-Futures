@@ -68,12 +68,11 @@ class Education(models.Model):
     institution = models.CharField(max_length=200)
     department = models.CharField(max_length=200, blank=True, null=True)
     specialization = models.CharField(max_length=300, blank=True, null=True)
-    start_year = models.IntegerField()
-    end_year = models.IntegerField(blank=True, null=True)
+    timeline = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.degree} - {self.institution}"
-
+    
     
 class ProfessionalLink(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='professional_links')
@@ -90,18 +89,19 @@ class WorkExperience(models.Model):
         ('part_time', 'Part-time'),
         ('contract', 'Contract'),
         ('internship', 'Internship'),
+        ('others', 'Others'),
+        ('freelance', 'Freelance'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='experience')
-    title = models.CharField(max_length=200)
+    designation = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
     employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_CHOICES, default='full_time')
-    start_date = models.DateField()
-    end_date = models.DateField(blank=True, null=True)   # null = "Present"
+    timeline = models.CharField(max_length=50)
     primary_focus = models.TextField(blank=True, null=True)
-    skills = models.CharField(max_length=500, blank=True, null=True)  # comma-separated
+    skills = models.JSONField(default=list, blank=True)
 
     def __str__(self):
-        return f"{self.title} at {self.company}"
+        return f"{self.designation} at {self.company}"
 
 
 class Publication(models.Model):
