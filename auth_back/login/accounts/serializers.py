@@ -74,12 +74,14 @@ class PublicationSerializer(serializers.ModelSerializer):
         doi = validated_data.get('doi', '').strip()
         clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
 
+        validated_data['doi'] = clean_doi
+
         metadata = None
         try:
-            metadata = fetch_doi_metadata(doi)
+            metadata = fetch_doi_metadata(clean_doi)
         except Exception:
             metadata = None
-            
+
         if metadata:
             validated_data['title'] = metadata.get('title') or ''
             validated_data['authors'] = metadata.get('authors') or ''
