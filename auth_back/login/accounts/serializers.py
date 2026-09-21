@@ -61,10 +61,13 @@ class WorkExperienceSerializer(serializers.ModelSerializer):
 
 
 class PublicationSerializer(serializers.ModelSerializer):
+    link = serializers.CharField(source='doi', write_only=True)
+    publication_url = serializers.URLField(source='link', read_only=True)
+
     class Meta:
         model = Publication
-        fields = ['id', 'doi', 'title', 'authors', 'journal', 'year', 'link']
-        read_only_fields = ['title', 'authors', 'journal', 'year', 'link']
+        fields = ['id', 'link', 'title', 'authors', 'journal', 'year', 'publication_url']
+        read_only_fields = ['title', 'authors', 'journal', 'year']   # ← 'link' মুছে দেওয়া হলো
 
     def create(self, validated_data):
         doi = validated_data.get('doi')
