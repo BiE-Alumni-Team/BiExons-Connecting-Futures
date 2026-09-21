@@ -71,16 +71,23 @@ class PublicationSerializer(serializers.ModelSerializer):
         read_only_fields = ['title', 'authors', 'journal', 'year']   # ← 'link' মুছে দেওয়া হলো
 
     def create(self, validated_data):
-        doi = validated_data.get('doi')
-        metadata = fetch_doi_metadata(doi)
+        doi = validated_data.get('doi', '').strip()
+        clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
 
+        metadata = None
+        try:
+            metadata = fetch_doi_metadata(doi)
+        except Exception:
+            metadata = None
+            
         if metadata:
-            validated_data['title'] = metadata['title']
-            validated_data['authors'] = metadata['authors']
-            validated_data['journal'] = metadata['journal']
-            validated_data['year'] = metadata['year']
-            validated_data['link'] = metadata['link']
+            validated_data['title'] = metadata.get('title') or ''
+            validated_data['authors'] = metadata.get('authors') or ''
+            validated_data['journal'] = metadata.get('journal') or ''
+            validated_data['year'] = metadata.get('year')
+            validated_data['link'] = metadata.get('link') or f"https://doi.org/{clean_doi}"
         else:
             validated_data['title'] = "Unable to fetch metadata — please verify the DOI"
+            validated_data['link'] = f"https://doi.org/{clean_doi}"
 
         return super().create(validated_data)
