@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     reg_no = models.CharField(max_length=20, unique=True)
     id_no = models.CharField(max_length=20, unique=True)
     session = models.CharField(max_length=20)
+    batch = models.CharField(max_length=20, blank=True, null=True)
     
     #   Details or About
     phone = models.CharField(max_length=15, blank=True, null=True)
