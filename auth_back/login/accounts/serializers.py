@@ -68,7 +68,7 @@ class PublicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publication
         fields = ['id', 'link', 'title', 'authors', 'journal', 'year', 'publication_url']
-        read_only_fields = ['title', 'authors', 'journal', 'year']   # ← 'link' মুছে দেওয়া হলো
+        read_only_fields = ['title', 'authors', 'journal', 'year']
 
     def create(self, validated_data):
         doi = validated_data.get('doi', '').strip()
