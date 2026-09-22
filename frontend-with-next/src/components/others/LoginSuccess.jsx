@@ -1,8 +1,12 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 
 export default function LoginSuccess() {
+
+    const { loginsucces } = useAuth();
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-green-200 via-green-100 to-emerald-50 px-4">
             <div className="card w-full max-w-md  bg-linear-to-r from-blue-300 via-violet-300 to-blue-400 shadow-2xl border-2 border-violet-500 rounded-3xl">

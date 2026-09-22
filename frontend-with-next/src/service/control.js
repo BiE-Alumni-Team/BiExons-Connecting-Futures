@@ -1,4 +1,5 @@
 
+
 export const validateRegistration = ({
     password,
     confirmpassword,
@@ -44,3 +45,4 @@ export const validateLogin = ({ email, password }) => {
 
     return emailValid && passwordValid;
 };
+

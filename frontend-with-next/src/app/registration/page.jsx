@@ -1,4 +1,5 @@
 "use client";
+
 import Id from "@/components/formcomp/Id";
 import Moblie from "@/components/formcomp/Moblie";
 import Name from "@/components/formcomp/Name";
