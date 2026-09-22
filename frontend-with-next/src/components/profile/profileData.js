@@ -3,8 +3,8 @@
 export const initialProfile = {
 
   personal: {
-    firstName: "Manus",
-    lastName: "Islam",
+    first_name: "Manus",
+    last_name: "Islam",
     email: "manus@example.com",
     phone: "+880 1712-345678",
     location: "Dhaka, Bangladesh",
@@ -65,3 +65,6 @@ export const initialProfile = {
     { id: 4, name: "ResearchGate", url: "https://researchgate.net" },
   ],
 };
+
+
+export default initialProfile;

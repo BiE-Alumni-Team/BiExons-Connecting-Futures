@@ -1,8 +1,86 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { initialProfile } from "./profileData";
+import { getProfile } from "@/service/authApi";
 
 export function useProfile() {
-  const [profile, setProfile] = useState(initialProfile);
+
+  const [profile, setProfile] = useState({
+    personal: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      location: "",
+      aboutMe: "",
+      image: "",
+    },
+
+    bau: {
+      session: "",
+    },
+
+    experiences: [],
+
+    education: [],
+
+    publications: [],
+
+    networking: {
+      mentorship: false,
+      mentorshipText: "",
+      jobReferral: false,
+      jobReferralText: "",
+    },
+
+    links: [],
+  });
+
+  // ---------- Personal ----------
+  const [personalEditing, setPersonalEditing] = useState(false);
+  const [personalDraft, setPersonalDraft] = useState(null);
+
+  // ---------- BAU ----------
+  const [bauEditing, setBauEditing] = useState(false);
+  const [bauDraft, setBauDraft] = useState("");
+
+  // ---------- Experience ----------
+  const [experienceEditingId, setExperienceEditingId] = useState(null);
+  const [experienceDraft, setExperienceDraft] = useState(null);
+  const [skillsEditingId, setSkillsEditingId] = useState(null);
+  const [newSkill, setNewSkill] = useState("");
+
+  // ---------- Education ----------
+  const [educationEditingId, setEducationEditingId] = useState(null);
+  const [educationDraft, setEducationDraft] = useState(null);
+
+  // ---------- Publications ----------
+  const [publicationEditingId, setPublicationEditingId] = useState(null);
+  const [publicationDraft, setPublicationDraft] = useState(null);
+
+  // ---------- Networking ----------
+  const [networkingEditing, setNetworkingEditing] = useState(false);
+  const [networkingDraft, setNetworkingDraft] = useState(null);
+
+  // ---------- Links ----------
+  const [linkEditingId, setLinkEditingId] = useState(null);
+  const [linkDraft, setLinkDraft] = useState(null);
+
+
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await getProfile();
+        // console.log("PROFILE DATA:", data);
+        setProfile(data);
+      } catch (error) {
+        console.error("PROFILE ERROR:", error);
+      }
+    };
+
+    loadProfile();
+  }, []);
+
 
   //--------------image-------------
   const handleImageUpload = (event) => {
@@ -29,9 +107,6 @@ export function useProfile() {
   };
 
   // ---------- Personal ----------
-  const [personalEditing, setPersonalEditing] = useState(false);
-  const [personalDraft, setPersonalDraft] = useState(profile.personal);
-
   const editPersonal = () => {
     setPersonalDraft({ ...profile.personal });
     setPersonalEditing(true);
@@ -52,9 +127,6 @@ export function useProfile() {
   };
 
   // ---------- BAU ----------
-  const [bauEditing, setBauEditing] = useState(false);
-  const [bauDraft, setBauDraft] = useState(profile.bau.session);
-
   const editBau = () => {
     setBauDraft(profile.bau.session);
     setBauEditing(true);
@@ -74,11 +146,6 @@ export function useProfile() {
   };
 
   // ---------- Experience ----------
-  const [experienceEditingId, setExperienceEditingId] = useState(null);
-  const [experienceDraft, setExperienceDraft] = useState(null);
-  const [skillsEditingId, setSkillsEditingId] = useState(null);
-  const [newSkill, setNewSkill] = useState("");
-
   const editExperience = (item) => {
     setExperienceEditingId(item.id);
     setExperienceDraft({ ...item, skills: [...item.skills] });
@@ -169,8 +236,6 @@ export function useProfile() {
   };
 
   // ---------- Education ----------
-  const [educationEditingId, setEducationEditingId] = useState(null);
-  const [educationDraft, setEducationDraft] = useState(null);
 
   const editEducation = (item) => {
     setEducationEditingId(item.id);
@@ -224,9 +289,6 @@ export function useProfile() {
   };
 
   // ---------- Publications ----------
-  const [publicationEditingId, setPublicationEditingId] = useState(null);
-  const [publicationDraft, setPublicationDraft] = useState(null);
-
   const editPublication = (item) => {
     setPublicationEditingId(item.id);
     setPublicationDraft({ ...item });
@@ -276,8 +338,6 @@ export function useProfile() {
   };
 
   // ---------- Networking ----------
-  const [networkingEditing, setNetworkingEditing] = useState(false);
-  const [networkingDraft, setNetworkingDraft] = useState(profile.networking);
 
   const editNetworking = () => {
     setNetworkingDraft({ ...profile.networking });
@@ -302,9 +362,6 @@ export function useProfile() {
   };
 
   // ---------- Links ----------
-  const [linkEditingId, setLinkEditingId] = useState(null);
-  const [linkDraft, setLinkDraft] = useState(null);
-
   const editLink = (item) => {
     setLinkEditingId(item.id);
     setLinkDraft({ ...item });
@@ -352,6 +409,10 @@ export function useProfile() {
       links: prev.links.filter((item) => item.id !== id),
     }));
   };
+
+  if (!profile) {
+    return <div>Loading profile...</div>;
+  }
 
   return {
     profile,

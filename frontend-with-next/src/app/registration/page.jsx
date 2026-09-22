@@ -8,6 +8,7 @@ import { useInputFields } from "@/components/hooks/useInputFields";
 import Loading from "@/components/others/Loading";
 import LoginSuccess from "@/components/others/LoginSuccess";
 import Success from "@/components/others/success";
+import { useAuth } from "@/context/AuthContext";
 import { loginUser, registerUser } from "@/service/authApi";
 import { validateRegistration, validateLogin } from "@/service/control";
 import { useState } from "react";
@@ -21,8 +22,8 @@ const AuthForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
-    const [isSuccess, setisSuccess] = useState(false);
-    const [loginsucces, setLoginSuccess] = useState(false)
+    const [isSuccess, setisSuccess] = useState();
+    const { loginsucces, setLoginSuccess } = useAuth();
     const [loginError, setLoginError] = useState("");
     const [regerror, setregError] = useState("");
 
@@ -118,7 +119,12 @@ const AuthForm = () => {
             try {
                 const data = await loginUser(email, password);
 
+
                 if (data?.access && data?.refresh) {
+                    // Save JWT tokens
+                    localStorage.setItem("access_token", data.access);
+                    localStorage.setItem("refresh_token", data.refresh);
+
                     // Login successful
                     setLoginSuccess(true);
                     setLoginError("");

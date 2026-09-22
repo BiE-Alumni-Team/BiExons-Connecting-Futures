@@ -45,7 +45,6 @@ function Field({ label, value, onChange, type = "text", textarea = false }) {
     </div>
   );
 }
-
 function SaveCancel({ onSave, onCancel }) {
   return (
     <div className="flex justify-end gap-2">
@@ -98,10 +97,11 @@ function Card({ title, icon, children, editing, onEdit, onCancel }) {
   );
 }
 
+
 function Personal({ profile, data }) {
   const fields = [
-    ["firstName", "First Name"],
-    ["lastName", "Last Name"],
+    ["first_name", "First Name"],
+    ["last_name", "Last Name"],
     ["email", "Email"],
     ["phone", "Phone"],
     ["location", "Location"],
@@ -146,17 +146,21 @@ function Personal({ profile, data }) {
                 <p className="text-xs font-bold uppercase text-gray-500">
                   {label}
                 </p>
+
                 <p className="mt-1 text-sm font-medium text-gray-800">
-                  {profile.personal[key] || "Not provided"}
+                  {profile?.[key] || "Not provided"}
                 </p>
               </div>
             ))}
           </div>
 
           <div className="rounded-lg bg-gray-50 p-3">
-            <p className="text-xs font-bold uppercase text-gray-500">About Me</p>
+            <p className="text-xs font-bold uppercase text-gray-500">
+              About Me
+            </p>
+
             <p className="mt-1 text-sm leading-6 text-gray-700">
-              {profile.personal.aboutMe || "Not provided"}
+              {profile?.aboutMe || "Not provided"}
             </p>
           </div>
         </div>
@@ -166,6 +170,7 @@ function Personal({ profile, data }) {
 }
 
 function Bau({ profile, data }) {
+
   return (
     <Card
       title="BAU"
@@ -184,10 +189,10 @@ function Bau({ profile, data }) {
           <SaveCancel onSave={data.save} onCancel={data.cancel} />
         </div>
       ) : (
-        <div className="flex items-center justify-between rounded-xl bg-green-50 p-4">
-          <span className="font-semibold text-gray-700">B.Sc in Bioinformatics Engineering</span>
-          <span className="rounded-full bg-green-700 px-4 py-1 text-sm font-semibold text-white">
-            {profile.bau.session}
+        <div className="flex gap-2 items-center justify-between rounded-xl bg-green-50 p-4">
+          <span className="flex-1 font-semibold text-gray-700">B.Sc in Bioinformatics Engineering</span>
+          <span className="flex-1 flex justify-end rounded-full px-2 py-1 text-sm font-semibold text-white">
+            <p className="bg-green-700 p-1 rounded-xl text-center">{profile?.session}</p>
           </span>
         </div>
       )}
@@ -198,8 +203,9 @@ function Bau({ profile, data }) {
 function Experience({ profile, data }) {
   return (
     <Card title="Professional Experience & Skills" icon={<FiBriefcase />}>
+
       <div className="space-y-5">
-        {profile.experiences.map((item) => {
+        {profile?.experiences?.map((item) => {
           const editing = data.editingId === item.id;
           const editingSkills = data.skillsEditingId === item.id;
 
@@ -238,6 +244,7 @@ function Experience({ profile, data }) {
                         <option>Contract</option>
                         <option>Internship</option>
                         <option>Freelance</option>
+                        <option>Others</option>
                       </select>
                     </div>
                   </div>
@@ -263,13 +270,27 @@ function Experience({ profile, data }) {
                       </p>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => data.edit(item)}
-                      className="text-gray-500 hover:text-green-700"
-                    >
-                      <FiEdit2 />
-                    </button>
+                    <div className="flex flex-col items-end gap-2">
+                      {/* Edit Experience */}
+                      <button
+                        type="button"
+                        onClick={() => data.edit(item)}
+                        className="text-gray-500 hover:text-green-700"
+                      >
+                        <FiEdit2 />
+                      </button>
+
+                      {/* Delete Experience */}
+                      <button
+                        type="button"
+                        onClick={() => data.delete(item.id)}
+                        className="flex items-center gap-1 text-sm text-red-500 hover:text-red-700"
+                      >
+                        <FiTrash2 />
+
+                      </button>
+                    </div>
+
                   </div>
 
                   <div className="mt-2 flex flex-wrap gap-2 text-xs">
@@ -349,17 +370,6 @@ function Experience({ profile, data }) {
                     </div>
                   </div>
 
-                  {editingSkills && (
-                    <div className="mt-4 flex justify-end">
-                      <button
-                        type="button"
-                        onClick={() => data.delete(item.id)}
-                        className="flex items-center gap-1 text-sm text-red-500"
-                      >
-                        <FiTrash2 /> Delete Experience
-                      </button>
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -374,6 +384,7 @@ function Experience({ profile, data }) {
           <FiPlus /> Add Experience
         </button>
       </div>
+
     </Card>
   );
 }
@@ -382,7 +393,7 @@ function Education({ profile, data }) {
   return (
     <Card title="Higher Education" icon={<FiBookOpen />}>
       <div className="space-y-4">
-        {profile.education.map((item) => {
+        {profile?.education?.map((item) => {
           const editing = data.editingId === item.id;
 
           return (
@@ -477,7 +488,7 @@ function Publications({ profile, data }) {
   return (
     <Card title="Publications & Research Output" icon={<FiBookOpen />}>
       <div className="space-y-4">
-        {profile.publications.map((item) => {
+        {profile?.publications?.map((item) => {
           const editing = data.editingId === item.id;
 
           return (
@@ -487,14 +498,9 @@ function Publications({ profile, data }) {
             >
               {editing ? (
                 <div className="space-y-3">
-                  <Field
-                    label="Publication Title"
-                    value={data.draft.title}
-                    onChange={(v) => data.update("title", v)}
-                  />
 
                   <Field
-                    label="Publication Link"
+                    label="DOI url of Publication"
                     type="url"
                     value={data.draft.link}
                     onChange={(v) => data.update("link", v)}
@@ -619,11 +625,11 @@ function Networking({ profile, data }) {
             <div className="flex justify-between gap-2">
               <h3 className="font-bold">Mentorship</h3>
               <span className="text-sm font-semibold text-green-700">
-                {profile.networking.mentorship ? "Available" : "Unavailable"}
+                {profile?.networking?.mentorship ? "Available" : "Unavailable"}
               </span>
             </div>
             <p className="mt-1 text-sm text-gray-600">
-              {profile.networking.mentorshipText}
+              {profile?.networking?.mentorshipText}
             </p>
           </div>
 
@@ -631,11 +637,11 @@ function Networking({ profile, data }) {
             <div className="flex justify-between gap-2">
               <h3 className="font-bold">Job Referrals</h3>
               <span className="text-sm font-semibold text-green-700">
-                {profile.networking.jobReferral ? "Available" : "Unavailable"}
+                {profile?.networking?.jobReferral ? "Available" : "Unavailable"}
               </span>
             </div>
             <p className="mt-1 text-sm text-gray-600">
-              {profile.networking.jobReferralText}
+              {profile?.networking?.jobReferralText}
             </p>
           </div>
         </div>
@@ -648,7 +654,7 @@ function Links({ profile, data }) {
   return (
     <Card title="Professional Links" icon={<FiLink />}>
       <div className="space-y-2">
-        {profile.links.map((item) => {
+        {profile?.links?.map((item) => {
           const editing = data.editingId === item.id;
 
           return (
@@ -734,10 +740,18 @@ export default function Profile() {
     link,
   } = useProfile();
 
-  const fullName =
-    `${profile.personal.firstName} ${profile.personal.lastName}`.trim();
+  if (!profile) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        Loading profile...
+      </div>
+    );
+  }
 
-  const currentExperience = profile.experiences[0];
+  const fullName =
+    `${profile.first_name} ${profile.last_name}`.trim();
+
+  const currentExperience = profile.experiences;
 
   return (
     <main className="min-h-screen bg-[#f8f7ff] py-8">
@@ -746,15 +760,17 @@ export default function Profile() {
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
             <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-gray-200 shadow-md">
-              {profile.personal.image ? (
-                <img
-                  src={profile.personal.image}
-                  alt={fullName}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="text-sm text-gray-500">My Pic</span>
-              )}
+              {profile?.profile_photo
+                ? (
+                  <img
+                    src={profile.profile_photo
+                    }
+                    alt={fullName}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="text-sm text-gray-500">{profile?.first_name}</span>
+                )}
             </div>
 
             <div className="min-w-0 flex-1">
@@ -769,7 +785,9 @@ export default function Profile() {
               </p>
 
               <p className="mt-2 flex items-center gap-1 text-sm text-gray-500">
-                <FiMapPin /> {profile.personal.location}
+                <FiMapPin /> {
+                  profile?.personal?.location || ""
+                }
               </p>
             </div>
 

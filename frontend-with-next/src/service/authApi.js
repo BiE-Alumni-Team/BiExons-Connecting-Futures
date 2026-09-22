@@ -1,5 +1,8 @@
 
-process.env.NEXT_PUBLIC_API_BASE_URL || "https://biexons-backend.onrender.com";
+
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://biexons-backend.onrender.com";
+
 
 
 // ---------- 1. Register ----------
@@ -40,7 +43,6 @@ export const registerUser = async ({
 
 // ---------- 2. Login ----------
 
-// Backend login
 export const loginUser = async (email, password) => {
   const response = await fetch(`${BASE_URL}/api/token/`, {
     method: "POST",
@@ -69,22 +71,28 @@ export const loginUser = async (email, password) => {
 
   return data;
 };
+
 // ---------- 3. Get Profile (protected) ----------
 export async function getProfile() {
   const token = localStorage.getItem("access_token");
 
   let response = await fetch(`${BASE_URL}/api/accounts/profile/`, {
     method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   // If access token expired, try refreshing once and retry
   if (response.status === 401) {
     const refreshed = await refreshAccessToken();
+
     if (refreshed) {
       response = await fetch(`${BASE_URL}/api/accounts/profile/`, {
         method: "GET",
-        headers: { Authorization: `Bearer ${refreshed}` },
+        headers: {
+          Authorization: `Bearer ${refreshed}`,
+        },
       });
     }
   }
@@ -97,6 +105,7 @@ export async function getProfile() {
 
   return data;
 }
+
 
 // ---------- 4. Refresh Access Token ----------
 export async function refreshAccessToken() {
@@ -122,7 +131,11 @@ export async function refreshAccessToken() {
 }
 
 // ---------- 5. Logout (client-side only) ----------
+
 export function logoutUser() {
+
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
+
+  window.location.href = "/";
 }
