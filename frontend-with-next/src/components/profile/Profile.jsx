@@ -1,3 +1,5 @@
+"use client"
+
 import {
   FiBookOpen,
   FiBriefcase,
@@ -13,12 +15,58 @@ import {
 } from "react-icons/fi";
 
 import { useProfile } from "./profileFunctions";
+import Link from "next/link";
 
 const inputClass =
   "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100";
 
 const buttonClass =
   "rounded-lg px-4 py-2 text-sm font-semibold transition";
+
+// const fetchPublication = async () => {
+//   if (!draft.doi) {
+//     setError("Please enter a DOI.");
+//     return;
+//   }
+
+//   setFetching(true);
+//   setError("");
+
+//   try {
+//     const response = await fetch(
+//       `${API_BASE_URL}/api/publications/fetch/`,
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${localStorage.getItem("access")}`,
+//         },
+//         body: JSON.stringify({
+//           doi: draft.doi,
+//         }),
+//       }
+//     );
+
+//     const result = await response.json();
+
+//     if (!response.ok) {
+//       throw new Error(
+//         result.detail || "Could not fetch publication."
+//       );
+//     }
+
+//     update("title", result.title);
+//     update("authors", result.authors);
+//     update("journal", result.journal);
+//     update("year", result.year);
+//     update("link", result.link);
+
+//   } catch (error) {
+//     setError(error.message);
+//   } finally {
+//     setFetching(false);
+//   }
+// };
 
 function Field({ label, value, onChange, type = "text", textarea = false }) {
   return (
@@ -99,6 +147,7 @@ function Card({ title, icon, children, editing, onEdit, onCancel }) {
 
 
 function Personal({ profile, data }) {
+
   const fields = [
     ["first_name", "First Name"],
     ["last_name", "Last Name"],
@@ -201,11 +250,12 @@ function Bau({ profile, data }) {
 }
 
 function Experience({ profile, data }) {
+  console.log(profile)
   return (
     <Card title="Professional Experience & Skills" icon={<FiBriefcase />}>
 
       <div className="space-y-5">
-        {profile?.experiences?.map((item) => {
+        {profile?.experience?.map((item) => {
           const editing = data.editingId === item.id;
           const editingSkills = data.skillsEditingId === item.id;
 
@@ -298,7 +348,7 @@ function Experience({ profile, data }) {
                       {item.timeline}
                     </span>
                     <span className="rounded-full bg-white px-3 py-1">
-                      {item.type}
+                      {item.employment_type}
                     </span>
                   </div>
 
@@ -307,7 +357,7 @@ function Experience({ profile, data }) {
                       Primary Focus
                     </p>
                     <p className="mt-1 text-sm leading-6 text-gray-700">
-                      {item.focus}
+                      {item.primary_focus}
                     </p>
                   </div>
 
@@ -407,8 +457,8 @@ function Education({ profile, data }) {
                   />
                   <Field
                     label="University / Institution"
-                    value={data.draft.university}
-                    onChange={(v) => data.update("university", v)}
+                    value={data.draft.institution}
+                    onChange={(v) => data.update("institution", v)}
                   />
 
                   <div className="grid gap-3 md:grid-cols-2">
@@ -436,8 +486,8 @@ function Education({ profile, data }) {
                 <div className="flex justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="font-bold text-gray-800">{item.degree}</h3>
-                    <p className="font-semibold text-green-700">
-                      {item.university}
+                    <p className="font-semibold text-green-700 text-xl">
+                      {item.institution}
                     </p>
                     <p className="text-sm text-gray-600">{item.department}</p>
                     <p className="mt-2 text-sm text-gray-700">
@@ -488,6 +538,7 @@ function Publications({ profile, data }) {
   return (
     <Card title="Publications & Research Output" icon={<FiBookOpen />}>
       <div className="space-y-4">
+
         {profile?.publications?.map((item) => {
           const editing = data.editingId === item.id;
 
@@ -499,37 +550,128 @@ function Publications({ profile, data }) {
               {editing ? (
                 <div className="space-y-3">
 
+                  {/* DOI input only */}
                   <Field
-                    label="DOI url of Publication"
-                    type="url"
-                    value={data.draft.link}
-                    onChange={(v) => data.update("link", v)}
+                    label="DOI"
+                    type="text"
+                    placeholder="e.g. 10.1038/s41586-020-2649-2"
+                    value={data.draft.doi || ""}
+                    onChange={(v) => data.update("doi", v)}
                   />
 
-                  <SaveCancel onSave={data.save} onCancel={data.cancel} />
+                  {/* Fetch button */}
+                  <button
+                    type="button"
+                    onClick={data.fetchPublication}
+                    disabled={data.fetching}
+                    className="rounded-lg bg-green-700 px-4 py-2
+                               text-sm font-semibold text-white
+                               hover:bg-green-800
+                               disabled:cursor-not-allowed
+                               disabled:opacity-50"
+                  >
+                    {data.fetching
+                      ? "Fetching publication..."
+                      : "Fetch Publication"}
+                  </button>
+
+                  {/* Error */}
+                  {data.error && (
+                    <p className="text-sm text-red-500">
+                      {data.error}
+                    </p>
+                  )}
+
+                  {/* Preview fetched information */}
+                  {data.draft.title && (
+                    <div className="rounded-lg border bg-white p-4 space-y-2">
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-gray-500">
+                          Title
+                        </p>
+                        <p className="text-sm font-medium text-gray-800">
+                          {data.draft.title}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-gray-500">
+                          Authors
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          {data.draft.authors}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-gray-500">
+                          Journal
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          {data.draft.journal}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase text-gray-500">
+                          Year
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          {data.draft.year}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  <SaveCancel
+                    onSave={data.save}
+                    onCancel={data.cancel}
+                  />
                 </div>
               ) : (
                 <div className="flex justify-between gap-4">
+
                   <div className="min-w-0">
+
+                    {/* Title */}
                     <h3 className="font-semibold text-gray-800">
                       {item.title || "Untitled Publication"}
                     </h3>
 
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-2 inline-block text-sm font-semibold text-green-700 hover:underline"
-                    >
-                      View Publication ↗
-                    </a>
+                    {/* Authors */}
+                    {/* {item.authors && (
+                      <p className="mt-1 text-sm text-gray-600">
+                        {item.authors}
+                      </p>
+                    )} */}
+
+                    {/* Journal + year */}
+                    <p className="mt-1 text-sm text-gray-500 font-semibold">
+                      {item.journal || "Unknown journal"}
+                      {item.year && ` • ${item.year}`}
+                    </p>
+
+                    {/* DOI */}
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 inline-block text-sm
+                                   font-semibold text-green-700
+                                   hover:underline"
+                      >
+                        View Publication ↗
+                      </a>
+                    )}
                   </div>
 
+                  {/* Edit/Delete */}
                   <div className="flex shrink-0 gap-3">
                     <button
                       type="button"
                       onClick={() => data.edit(item)}
-                      className="text-gray-500"
+                      className="text-gray-500 hover:text-gray-700"
                     >
                       <FiEdit2 />
                     </button>
@@ -537,24 +679,31 @@ function Publications({ profile, data }) {
                     <button
                       type="button"
                       onClick={() => data.delete(item.id)}
-                      className="text-red-500"
+                      className="text-red-500 hover:text-red-700"
                     >
                       <FiTrash2 />
                     </button>
                   </div>
+
                 </div>
               )}
             </div>
           );
         })}
 
+        {/* Add publication */}
         <button
           type="button"
           onClick={data.add}
-          className="mx-auto flex items-center gap-2 rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50"
+          className="mx-auto flex items-center gap-2
+                     rounded-lg border border-green-700
+                     px-4 py-2 text-sm font-semibold
+                     text-green-700 hover:bg-green-50"
         >
-          <FiPlus /> Add Publication
+          <FiPlus />
+          Add Publication
         </button>
+
       </div>
     </Card>
   );
@@ -654,7 +803,7 @@ function Links({ profile, data }) {
   return (
     <Card title="Professional Links" icon={<FiLink />}>
       <div className="space-y-2">
-        {profile?.links?.map((item) => {
+        {profile?.professional_links?.map((item) => {
           const editing = data.editingId === item.id;
 
           return (
@@ -663,7 +812,7 @@ function Links({ profile, data }) {
                 <div className="space-y-3">
                   <Field
                     label="Link Name"
-                    value={data.draft.name}
+                    value={data.draft.platform}
                     onChange={(v) => data.update("name", v)}
                   />
 
@@ -680,16 +829,16 @@ function Links({ profile, data }) {
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-semibold">
-                      {item.name || "Unnamed Link"}
+                      {item.platform || "Unnamed Link"}
                     </p>
-                    <a
+                    <Link
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
                       className="block truncate text-sm text-gray-500 hover:text-green-700"
                     >
                       {item.url}
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="flex shrink-0 gap-3">

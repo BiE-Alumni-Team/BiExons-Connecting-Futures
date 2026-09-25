@@ -18,6 +18,7 @@ export const initialProfile = {
   },
 
   experiences: [
+
     {
       id: 1,
       designation: "Senior Research Scientist",
@@ -27,7 +28,8 @@ export const initialProfile = {
       timeline: "2023 – Present",
       type: "Full-time",
       skills: ["Python", "R", "Bioinformatics", "Molecular Docking", "PyMOL"],
-    },
+    }
+
   ],
 
   education: [

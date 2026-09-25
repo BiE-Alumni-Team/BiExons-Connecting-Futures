@@ -42,7 +42,6 @@ export const registerUser = async ({
 }
 
 // ---------- 2. Login ----------
-
 export const loginUser = async (email, password) => {
   const response = await fetch(`${BASE_URL}/api/token/`, {
     method: "POST",
@@ -74,27 +73,40 @@ export const loginUser = async (email, password) => {
 
 // ---------- 3. Get Profile (protected) ----------
 export async function getProfile() {
-  const token = localStorage.getItem("access_token");
+  let token = localStorage.getItem("access_token");
 
-  let response = await fetch(`${BASE_URL}/api/accounts/profile/`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  if (!token) {
+    throw new Error("No access token");
+  }
 
-  // If access token expired, try refreshing once and retry
+  let response = await fetch(
+    `${BASE_URL}/api/accounts/profile/`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  // Access token expired → refresh it
   if (response.status === 401) {
     const refreshed = await refreshAccessToken();
 
-    if (refreshed) {
-      response = await fetch(`${BASE_URL}/api/accounts/profile/`, {
+    if (!refreshed) {
+      throw new Error("Session expired");
+    }
+
+    // Retry with new access token
+    response = await fetch(
+      `${BASE_URL}/api/accounts/profile/`,
+      {
         method: "GET",
         headers: {
           Authorization: `Bearer ${refreshed}`,
         },
-      });
-    }
+      }
+    );
   }
 
   const data = await response.json();
@@ -110,23 +122,33 @@ export async function getProfile() {
 // ---------- 4. Refresh Access Token ----------
 export async function refreshAccessToken() {
   const refreshToken = localStorage.getItem("refresh_token");
-  if (!refreshToken) return null;
 
-  const response = await fetch(`${BASE_URL}/api/token/refresh/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ refresh: refreshToken }),
-  });
+  if (!refreshToken) {
+    return null;
+  }
+
+  const response = await fetch(
+    `${BASE_URL}/api/token/refresh/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refresh: refreshToken,
+      }),
+    }
+  );
 
   if (!response.ok) {
-    // refresh token itself expired — user must log in again
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    // Do NOT remove tokens here
     return null;
   }
 
   const data = await response.json();
+
   localStorage.setItem("access_token", data.access);
+
   return data.access;
 }
 

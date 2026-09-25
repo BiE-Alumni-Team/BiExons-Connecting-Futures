@@ -33,17 +33,23 @@ export default function RootLayout({ children }) {
 
         <AuthProvider>
 
-          <Navbar />
+          <AuthProvider>
 
-          <main className="flex-1 pt-20">
-            <ToastProvider />
-            {children}
-          </main>
+            <Navbar />
 
-          <Footer />
-          <FloatingIcon />
+            <main className="flex-1 pt-20">
+              <ToastProvider />
+              {children}
+            </main>
+
+            <Footer />
+            <FloatingIcon />
+
+          </AuthProvider>
 
         </AuthProvider>
+
+
 
       </body>
 
