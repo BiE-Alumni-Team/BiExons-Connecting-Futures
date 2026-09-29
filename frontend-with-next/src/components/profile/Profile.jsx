@@ -649,6 +649,7 @@ function Publications({ profile, data }) {
                     <p className="mt-1 text-sm text-gray-500 font-semibold">
                       {item.journal || "Unknown journal"}
                       {item.year && ` • ${item.year}`}
+                      {item.journal_link}
                     </p>
 
                     {/* DOI */}

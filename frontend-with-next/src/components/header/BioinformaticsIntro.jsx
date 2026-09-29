@@ -36,7 +36,8 @@ function Reveal({ from = "up", delay = 0, className = "", children }) {
 }
 
 export default function BioinformaticsIntro({
-  src = "/bio-planet.html", // file placed in your Next.js /public folder
+  src = "/bio-planet.html",
+  // file placed in your Next.js /public folder
   title = "Rotating bioinformatics planet",
 }) {
   return (
@@ -52,6 +53,7 @@ export default function BioinformaticsIntro({
           .reveal { opacity: 1; transform: none; transition: none; }
         }
       `}</style>
+
 
       <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16">
         {/* Left: 3D planet. Slides in from the left and spins by itself */}
@@ -97,7 +99,10 @@ export default function BioinformaticsIntro({
             </ul>
           </Reveal>
         </div>
+
       </div>
+
+
     </section>
   );
 }

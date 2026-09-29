@@ -177,15 +177,15 @@ export function useProfile() {
       id: Date.now(),
       designation: "",
       company: "",
-      focus: "",
+      primary_focus: "",
       timeline: "",
-      type: "Full-time",
+      employment_type: "Full-time",
       skills: [],
     };
 
     setProfile((prev) => ({
       ...prev,
-      experiences: [...prev.experiences, item],
+      experience: [...(prev.experience || []), item],
     }));
 
     editExperience(item);
@@ -194,7 +194,7 @@ export function useProfile() {
   const deleteExperience = (id) => {
     setProfile((prev) => ({
       ...prev,
-      experiences: prev.experiences.filter((item) => item.id !== id),
+      experience: prev.experience.filter((item) => item.id !== id),
     }));
 
     if (experienceEditingId === id) cancelExperience();
@@ -364,7 +364,12 @@ export function useProfile() {
   // ---------- Links ----------
   const editLink = (item) => {
     setLinkEditingId(item.id);
-    setLinkDraft({ ...item });
+
+    setLinkDraft({
+      id: item.id,
+      platform: item.platform || "",
+      url: item.url || "",
+    });
   };
 
   const updateLink = (key, value) => {
@@ -391,22 +396,24 @@ export function useProfile() {
   const addLink = () => {
     const item = {
       id: Date.now(),
-      name: "",
+      platform: "",
       url: "",
     };
 
     setProfile((prev) => ({
       ...prev,
-      links: [...prev.links, item],
+      professional_links: [
+        ...(prev.professional_links || []),
+        item,
+      ],
     }));
 
     editLink(item);
   };
-
   const deleteLink = (id) => {
     setProfile((prev) => ({
       ...prev,
-      links: prev.links.filter((item) => item.id !== id),
+      professional_links: prev.professional_links.filter((item) => item.id !== id),
     }));
   };
 
