@@ -27,12 +27,15 @@ def fetch_doi_metadata(doi):
         if date_parts and date_parts[0]:
             year = date_parts[0][0]
 
+        journal_url = data.get("URL") or f"https://doi.org/{doi}"
+
         return {
             "title": title,
             "authors": authors,
             "journal": journal,
             "year": year,
             "link": f"https://doi.org/{doi}",
+            "journal_link": journal_url,
         }
 
     except (requests.RequestException, KeyError, IndexError):

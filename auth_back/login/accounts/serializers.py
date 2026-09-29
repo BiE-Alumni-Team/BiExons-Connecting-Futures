@@ -47,8 +47,8 @@ class PublicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Publication
-        fields = ['id', 'link', 'title', 'authors', 'journal', 'year']
-        read_only_fields = ['title', 'authors', 'journal', 'year']
+        fields = ['id', 'link', 'title', 'authors', 'journal', 'journal_link', 'year']
+        read_only_fields = ['title', 'authors', 'journal', 'journal_link', 'year']
 
     def create(self, validated_data):
         raw_link = validated_data.pop('link', '').strip()
@@ -64,6 +64,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             validated_data['title'] = (metadata.get('title') or '')[:500]
             validated_data['authors'] = (metadata.get('authors') or '')[:500]
             validated_data['journal'] = (metadata.get('journal') or '')[:300]
+            validated_data['journal_link'] = metadata.get('journal_link') or ''
             validated_data['year'] = metadata.get('year')
             validated_data['link'] = metadata.get('link') or f"https://doi.org/{clean_doi}"
         else:

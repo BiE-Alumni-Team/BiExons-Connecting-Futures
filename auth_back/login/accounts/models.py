@@ -112,6 +112,7 @@ class Publication(models.Model):
     journal = models.CharField(max_length=300, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
+    journal_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title or self.doi
