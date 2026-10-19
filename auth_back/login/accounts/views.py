@@ -7,6 +7,8 @@ from .models import Education, ProfessionalLink, WorkExperience
 from .serializers import EducationSerializer, ProfessionalLinkSerializer, WorkExperienceSerializer
 from .models import Publication
 from .serializers import PublicationSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import VerifiedTokenObtainPairSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -102,3 +104,7 @@ class PublicationDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Publication.objects.filter(user=self.request.user)
+
+
+class VerifiedTokenObtainPairView(TokenObtainPairView):
+    serializer_class = VerifiedTokenObtainPairSerializer

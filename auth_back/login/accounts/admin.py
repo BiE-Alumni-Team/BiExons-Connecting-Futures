@@ -21,5 +21,12 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
+    list_filter = ('is_verified', 'is_staff')
+    actions = ['make_verified']
+
+    @admin.action(description="Approve selected users as alumni")
+    def make_verified(self, request, queryset):
+        queryset.update(is_verified=True)
+
 
 admin.site.register(User, UserAdmin)

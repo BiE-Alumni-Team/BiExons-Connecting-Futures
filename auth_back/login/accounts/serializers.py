@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import User, Education, ProfessionalLink, WorkExperience, Publication
 from .utils import fetch_doi_metadata
+from rest_framework import exceptions
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 
@@ -98,3 +100,14 @@ class UserSerializer(serializers.ModelSerializer):
         if value and value.size > max_size:
             raise serializers.ValidationError("Image size must not exceed 5MB.")
         return value
+
+    
+class VerifiedTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        if not (self.user.is_verified or self.user.is_staff):
+            raise exceptions.AuthenticationFailed(
+                "Your account is pending admin approval.",
+                code="not_verified",
+            )
+        return data
